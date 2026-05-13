@@ -571,78 +571,180 @@
     color: #fff;
   }
 
-  /* ===== Slide 9: Practice ===== */
+  /* ===== Slide 9: Data Review ===== */
   .s9 { }
   .s9-header {
     position: absolute;
     left: 80px; top: 60px;
   }
   .s9-header .s2-accent { position: relative; margin-bottom: 16px; }
-  .s9-flow {
+  .s9-content {
+    position: absolute;
+    left: 80px; top: 160px;
+    right: 80px;
+  }
+  .s9-row {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+  .s9-col {
+    flex: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #f0e6e0;
+  }
+  .s9-col-header {
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    background: #511D12;
+    color: #fff;
+  }
+  .s9-col-header.orange {
+    background: #F77945;
+  }
+  .s9-col-body {
+    padding: 20px;
+    background: #FFFAF7;
+    min-height: 180px;
+  }
+  .s9-col-body h4 {
+    font-size: 16px;
+    color: #511D12;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .s9-col-body p, .s9-col-body li {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 6px;
+  }
+  .s9-col-body ul { list-style: none; padding: 0; }
+  .s9-col-body li {
+    position: relative;
+    padding-left: 16px;
+  }
+  .s9-col-body li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 9px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #F77945;
+  }
+  .s9-funnel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+    flex-wrap: wrap;
+  }
+  .s9-funnel-item {
+    background: #fff;
+    border: 1px solid #f0e6e0;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #666;
+  }
+  .s9-funnel-arrow {
+    color: #F77945;
+    font-size: 14px;
+  }
+  .s9-bottom {
+    position: absolute;
+    left: 80px; right: 80px;
+    bottom: 80px;
+    background: #FEEEE1;
+    border-radius: 4px;
+    padding: 16px 24px;
+  }
+  .s9-bottom h4 {
+    font-size: 15px;
+    color: #511D12;
+    margin-bottom: 8px;
+  }
+  .s9-bottom p {
+    font-size: 14px;
+    color: #7a6a62;
+    line-height: 1.6;
+    font-family: monospace;
+  }
+
+  /* ===== Slide 10: Practice ===== */
+  .s10 { }
+  .s9-header {
+    position: absolute;
+    left: 80px; top: 60px;
+  }
+  .s9-header .s2-accent { position: relative; margin-bottom: 16px; }
+  .s10-flow {
     position: absolute;
     left: 80px; top: 160px;
     right: 80px;
     display: flex;
     gap: 24px;
   }
-  .s9-step {
+  .s10-step {
     flex: 1;
     background: #fff;
     border: 1px solid #f0e6e0;
     border-radius: 4px;
     overflow: hidden;
   }
-  .s9-step-header {
+  .s10-step-header {
     padding: 16px 24px;
     background: #F77945;
     color: #fff;
   }
-  .s9-step-header .time {
+  .s10-step-header .time {
     font-size: 13px;
     opacity: 0.9;
   }
-  .s9-step-header .title {
+  .s10-step-header .title {
     font-size: 18px;
     font-weight: 600;
   }
-  .s9-step-body {
+  .s10-step-body {
     padding: 24px;
     font-size: 15px;
     color: #666;
     line-height: 1.7;
   }
-  .s9-tracks {
+  .s10-tracks {
     position: absolute;
     left: 80px; right: 80px;
     bottom: 120px;
     display: flex;
     gap: 24px;
   }
-  .s9-track {
+  .s10-track {
     flex: 1;
     padding: 20px 24px;
     border-radius: 4px;
   }
-  .s9-track-a { background: #FEEEE1; }
-  .s9-track-b { background: #FFFAF7; border: 1px solid #f0e6e0; }
-  .s9-track h4 {
+  .s10-track-a { background: #FEEEE1; }
+  .s10-track-b { background: #FFFAF7; border: 1px solid #f0e6e0; }
+  .s10-track h4 {
     font-size: 16px;
     margin-bottom: 8px;
     color: #511D12;
   }
-  .s9-track p {
+  .s10-track p {
     font-size: 14px;
     color: #888;
   }
 
-  /* ===== Slide 10: Summary ===== */
-  .s10 { }
-  .s10-header {
+  /* ===== Slide 11: Summary ===== */
+  .s11 { }
+  .s11-header {
     position: absolute;
     left: 80px; top: 60px;
   }
-  .s10-header .s2-accent { position: relative; margin-bottom: 16px; }
-  .s10-grid {
+  .s11-header .s2-accent { position: relative; margin-bottom: 16px; }
+  .s11-grid {
     position: absolute;
     left: 80px; top: 160px;
     right: 80px;
@@ -650,7 +752,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
-  .s10-item {
+  .s11-item {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -659,7 +761,7 @@
     border: 1px solid #f0e6e0;
     border-radius: 4px;
   }
-  .s10-item-num {
+  .s11-item-num {
     width: 48px; height: 48px;
     background: #511D12;
     color: #fff;
@@ -671,15 +773,15 @@
     font-weight: 700;
     flex-shrink: 0;
   }
-  .s10-item h3 {
+  .s11-item h3 {
     font-size: 20px;
     margin-bottom: 4px;
   }
-  .s10-item p {
+  .s11-item p {
     font-size: 15px;
     color: #888;
   }
-  .s10-plan {
+  .s11-plan {
     position: absolute;
     left: 80px; right: 80px;
     bottom: 160px;
@@ -687,11 +789,11 @@
     border-radius: 4px;
     padding: 20px 28px;
   }
-  .s10-plan p {
+  .s11-plan p {
     font-size: 15px;
     color: #7a6a62;
   }
-  .s10-quote {
+  .s11-quote {
     position: absolute;
     left: 80px; right: 80px;
     bottom: 60px;
@@ -746,7 +848,7 @@
           <span>AI</span>
         </div>
       </div>
-      <div class="page-num">01 / 10</div>
+      <div class="page-num">01 / 11</div>
     </div>
   </div>
 
@@ -773,7 +875,7 @@
           ① AI失忆　② AI胡说　③ AI重复
         </div>
       </div>
-      <div class="page-num">02 / 10</div>
+      <div class="page-num">02 / 11</div>
     </div>
   </div>
 
@@ -806,7 +908,7 @@
         </div>
       </div>
       <div class="s3-bottom-line">策略靠人，执行靠AI</div>
-      <div class="page-num">03 / 10</div>
+      <div class="page-num">03 / 11</div>
     </div>
   </div>
 
@@ -840,7 +942,7 @@
         <p>✓ 解决AI失忆/幻觉/重复的4个方法</p>
         <p>✓ 数据复盘意识（每周五固定做）</p>
       </div>
-      <div class="page-num">04 / 10</div>
+      <div class="page-num">04 / 11</div>
     </div>
   </div>
 
@@ -870,7 +972,7 @@
           </div>
         </div>
       </div>
-      <div class="page-num">05 / 10</div>
+      <div class="page-num">05 / 11</div>
     </div>
   </div>
 
@@ -916,7 +1018,7 @@
       <div class="s6-bottom">
         <p>把不变的信息存起来，每次只改变量</p>
       </div>
-      <div class="page-num">06 / 10</div>
+      <div class="page-num">06 / 11</div>
     </div>
   </div>
 
@@ -953,7 +1055,7 @@
       <div class="s7-tip">
         推荐用方式A（DeepSeek技能）：设置一次，以后每次打开新对话自动带入身份、画像、违禁词，你只需要输入课程名和季节。
       </div>
-      <div class="page-num">07 / 10</div>
+      <div class="page-num">07 / 11</div>
     </div>
   </div>
 
@@ -991,104 +1093,165 @@
           <div class="s8-col">"不对，我不是问A，而是问B""换一个方向"</div>
         </div>
       </div>
-      <div class="page-num">08 / 10</div>
+      <div class="page-num">08 / 11</div>
     </div>
   </div>
 
-  <!-- Slide 9: Practice -->
+  <!-- Slide 9: Data Review -->
   <div class="slide">
     <div class="slide-inner s9">
       <div class="s9-header">
         <div class="s2-accent"></div>
-        <h2>45分钟实战 —— 做出你的专属模板</h2>
+        <h2>数据复盘方法论 —— 让AI帮你读数据</h2>
       </div>
-      <div class="s9-flow">
-        <div class="s9-step">
-          <div class="s9-step-header">
-            <div class="time">15分钟</div>
-            <div class="title">步骤1：制作个人系统模板</div>
+      <div class="s9-content">
+        <div class="s9-row">
+          <div class="s9-col">
+            <div class="s9-col-header">新用户策略数据复盘</div>
+            <div class="s9-col-body">
+              <h4>分析漏斗</h4>
+              <div class="s9-funnel">
+                <div class="s9-funnel-item">注册</div>
+                <div class="s9-funnel-arrow">→</div>
+                <div class="s9-funnel-item">首课</div>
+                <div class="s9-funnel-arrow">→</div>
+                <div class="s9-funnel-item">留存</div>
+                <div class="s9-funnel-arrow">→</div>
+                <div class="s9-funnel-item">跨科</div>
+                <div class="s9-funnel-arrow">→</div>
+                <div class="s9-funnel-item">领课</div>
+              </div>
+              <h4>核心问题</h4>
+              <ul>
+                <li>哪个环节变化最大？为什么？</li>
+                <li>下周优化动作是什么？</li>
+              </ul>
+              <h4>案例</h4>
+              <p>唱歌宋5.4直播回捞（本周vs上周真实数据对比）</p>
+            </div>
           </div>
-          <div class="s9-step-body">
-            确定任务（文案/复盘/生图）→ 填写6要素 → 选择加载方式 → 用AI测试
-          </div>
-        </div>
-        <div class="s9-step">
-          <div class="s9-step-header">
-            <div class="time">15分钟</div>
-            <div class="title">步骤2：双轨实操二选一</div>
-          </div>
-          <div class="s9-step-body">
-            轨道A：文案攥写 / 轨道B：数据复盘<br>用DeepSeek现场操作
-          </div>
-        </div>
-        <div class="s9-step">
-          <div class="s9-step-header">
-            <div class="time">15分钟</div>
-            <div class="title">步骤3：分享点评</div>
-          </div>
-          <div class="s9-step-body">
-            抽3-4人展示个人模板和实操产出 → 现场点评
+          <div class="s9-col">
+            <div class="s9-col-header orange">素材推送数据复盘</div>
+            <div class="s9-col-body">
+              <h4>核心指标</h4>
+              <ul>
+                <li>推送人群数、点击率、转化率</li>
+                <li>访购率、素材类型（1v1/朋友圈/社群）</li>
+              </ul>
+              <h4>核心问题</h4>
+              <ul>
+                <li>哪类素材效果好？为什么？</li>
+                <li>下周换什么素材？</li>
+              </ul>
+              <h4>案例</h4>
+              <p>普拉提4.27回捞触达率（Agent vs 人工对比）</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="s9-tracks">
-        <div class="s9-track s9-track-a">
-          <h4>轨道A：文案攥写（推荐大多数运营）</h4>
-          <p>打开新对话 → 加载自己建的模板 → 输入变量 → AI输出 → 纠正优化</p>
-        </div>
-        <div class="s9-track s9-track-b">
-          <h4>轨道B：数据复盘（适合数据/策略运营）</h4>
-          <p>整理数据对比表 → 粘贴提示词框架 → 粘贴真实数据 → AI分析</p>
-        </div>
+      <div class="s9-bottom">
+        <h4>通用提示词框架（讲师拆解，学员记笔记）</h4>
+        <p>你是私域运营数据分析师。我负责「XXX」品类，以下是近2周数据...</p>
+        <p>任务：① 对比本周vs上周，哪个环节变化最大？② 结合用户画像分析原因 ③ 给出1个下周可执行的优化动作</p>
       </div>
-      <div class="page-num">09 / 10</div>
+      <div class="page-num">09 / 11</div>
     </div>
   </div>
 
-  <!-- Slide 10: Summary -->
+  <!-- Slide 10: Practice -->
   <div class="slide">
     <div class="slide-inner s10">
       <div class="s10-header">
         <div class="s2-accent"></div>
+        <h2>45分钟实战 —— 做出你的专属模板</h2>
+      </div>
+      <div class="s10-flow">
+        <div class="s10-step">
+          <div class="s10-step-header">
+            <div class="time">15分钟</div>
+            <div class="title">步骤1：制作个人系统模板</div>
+          </div>
+          <div class="s10-step-body">
+            确定任务（文案/复盘/生图）→ 填写6要素 → 选择加载方式 → 用AI测试
+          </div>
+        </div>
+        <div class="s10-step">
+          <div class="s10-step-header">
+            <div class="time">15分钟</div>
+            <div class="title">步骤2：双轨实操二选一</div>
+          </div>
+          <div class="s10-step-body">
+            轨道A：文案攥写 / 轨道B：数据复盘<br>用DeepSeek现场操作
+          </div>
+        </div>
+        <div class="s10-step">
+          <div class="s10-step-header">
+            <div class="time">15分钟</div>
+            <div class="title">步骤3：分享点评</div>
+          </div>
+          <div class="s10-step-body">
+            抽3-4人展示个人模板和实操产出 → 现场点评
+          </div>
+        </div>
+      </div>
+      <div class="s10-tracks">
+        <div class="s10-track s10-track-a">
+          <h4>轨道A：文案攥写（推荐大多数运营）</h4>
+          <p>打开新对话 → 加载自己建的模板 → 输入变量 → AI输出 → 纠正优化</p>
+        </div>
+        <div class="s10-track s10-track-b">
+          <h4>轨道B：数据复盘（适合数据/策略运营）</h4>
+          <p>整理数据对比表 → 粘贴提示词框架 → 粘贴真实数据 → AI分析</p>
+        </div>
+      </div>
+      <div class="page-num">10 / 11</div>
+    </div>
+  </div>
+
+  <!-- Slide 11: Summary -->
+  <div class="slide">
+    <div class="slide-inner s11">
+      <div class="s11-header">
+        <div class="s2-accent"></div>
         <h2>今天学了4件事，5月就这么做</h2>
       </div>
-      <div class="s10-grid">
-        <div class="s10-item">
-          <div class="s10-item-num">1</div>
+      <div class="s11-grid">
+        <div class="s11-item">
+          <div class="s11-item-num">1</div>
           <div>
             <h3>系统模板</h3>
             <p>解决AI失忆</p>
           </div>
         </div>
-        <div class="s10-item">
-          <div class="s10-item-num">2</div>
+        <div class="s11-item">
+          <div class="s11-item-num">2</div>
           <div>
             <h3>输出约束</h3>
             <p>解决AI幻觉</p>
           </div>
         </div>
-        <div class="s10-item">
-          <div class="s10-item-num">3</div>
+        <div class="s11-item">
+          <div class="s11-item-num">3</div>
           <div>
             <h3>纠正话术</h3>
             <p>解决AI跑偏</p>
           </div>
         </div>
-        <div class="s10-item">
-          <div class="s10-item-num">4</div>
+        <div class="s11-item">
+          <div class="s11-item-num">4</div>
           <div>
             <h3>数据复盘</h3>
             <p>形成习惯（每周五30分钟）</p>
           </div>
         </div>
       </div>
-      <div class="s10-plan">
+      <div class="s11-plan">
         <p><strong>5月使用计划：</strong>每天写文案前先加载系统模板　|　每周五AI数据复盘　|　每周迭代1次模板　|　月底提交模板终版 + 复盘报告</p>
       </div>
-      <div class="s10-quote">
+      <div class="s11-quote">
         AI不是替代你思考，是把你从"重复交代背景"中解放出来
       </div>
-      <div class="page-num">10 / 10</div>
+      <div class="page-num">11 / 11</div>
     </div>
   </div>
 
