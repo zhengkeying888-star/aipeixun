@@ -700,22 +700,76 @@
     </div>
   </div>
 
-  <!-- Slide 17: Q&A -->
+  <!-- Slide 17: Live Practice -->
   <div class="slide">
-    <div class="slide-inner">
-      <div style="text-align:center;">
-        <div class="icon-big" style="font-size:80px;margin-bottom:20px;">❓</div>
-        <h2 style="margin-bottom:16px;">答疑环节</h2>
-        <p class="subtitle" style="margin-bottom:40px;">带上你的真实任务，现场解决卡点</p>
-        <div class="card" style="max-width:700px;text-align:left;margin:0 auto;">
-          <p style="font-size:16px;margin-bottom:12px;"><strong>可以提问的方向：</strong></p>
-          <ul style="list-style:none;padding:0;">
-            <li style="padding:8px 0;border-bottom:1px dashed #E0E0E0;">💬 我的任务定义总是磨不到第4轮，卡在哪？</li>
-            <li style="padding:8px 0;border-bottom:1px dashed #E0E0E0;">💬 AI老是犯同一个幻觉，怎么在任务定义里根治？</li>
-            <li style="padding:8px 0;border-bottom:1px dashed #E0E0E0;">💬 辨证评论时，AI理解不了我的纠正，怎么办？</li>
-            <li style="padding:8px 0;">💬 我的品类很特殊，怎么设计任务定义框架？</li>
-          </ul>
+    <div class="slide-inner" style="padding:40px 80px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;">
+        <span class="tag" style="font-size:13px;">15分钟当场实战</span>
+      </div>
+      <h2 style="font-size:36px;margin-bottom:8px;">带上你原先的任务，现场体验变化</h2>
+      <p class="subtitle" style="margin-bottom:16px;">打开DeepSeek，用你自己的工作流跑一次4步闭环</p>
+
+      <div style="display:flex;gap:16px;width:100%;max-width:1200px;margin-bottom:16px;">
+        <!-- 左侧：Before vs After -->
+        <div style="flex:1;">
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;border:2px solid #E0E0E0;margin-bottom:12px;">
+            <div style="text-align:center;margin-bottom:10px;">
+              <span style="display:inline-block;background:#EF5350;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">❌ 以前的你</span>
+            </div>
+            <div class="chat-ai bad" style="margin:0 auto 8px;max-width:100%;font-size:13px;padding:10px 14px;">帮我写条文案</div>
+            <div class="chat-ai bad" style="margin:0 auto 8px;max-width:100%;font-size:13px;padding:10px 14px;">不对，重新写</div>
+            <div class="chat-ai bad" style="margin:0 auto;max-width:100%;font-size:13px;padding:10px 14px;">还是不行，我自己写吧</div>
+            <p style="text-align:center;font-size:13px;color:#9E9E9E;margin-top:8px;">每次重新交代背景 → AI跑偏 → 骂AI → 手写</p>
+          </div>
+          <div style="background:#E8F5E9;border-radius:16px;padding:16px;border:2px solid #C8E6C9;">
+            <div style="text-align:center;margin-bottom:10px;">
+              <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">✅ 现在的你</span>
+            </div>
+            <div class="chat-user" style="margin:0 auto 8px;max-width:100%;font-size:13px;padding:10px 14px;">粘贴「任务定义」→ 给变量 → AI按框架输出</div>
+            <div class="chat-user" style="margin:0 auto 8px;max-width:100%;font-size:13px;padding:10px 14px;">识别幻觉（事实/约束/方向）</div>
+            <div class="chat-user" style="margin:0 auto;max-width:100%;font-size:13px;padding:10px 14px;">辨证纠正 → 验收交付</div>
+            <p style="text-align:center;font-size:13px;color:#2E7D32;margin-top:8px;font-weight:600;">加载协作方法论 → 可控输出 → 人为把关</p>
+          </div>
         </div>
+
+        <!-- 右侧：实战步骤 + 时间分配 -->
+        <div style="flex:1;">
+          <div class="card" style="height:100%;display:flex;flex-direction:column;justify-content:center;">
+            <h3 style="font-size:18px;margin-bottom:12px;">🎯 实战步骤（15分钟）</h3>
+            <div style="margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="background:#D32F2F;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">1</span>
+                <span style="font-size:15px;font-weight:600;">打开你原先的任务（3分钟）</span>
+              </div>
+              <p style="font-size:13px;color:#8D6E63;padding-left:32px;">文案运营：打开你最近写的一条文案/数字人脚本<br>数据运营：打开你上周的直播/推送数据表</p>
+            </div>
+            <div style="margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="background:#D32F2F;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">2</span>
+                <span style="font-size:15px;font-weight:600;">现场创建任务定义（5分钟）</span>
+              </div>
+              <p style="font-size:13px;color:#8D6E63;padding-left:32px;">按身份+画像+动作+要求，和AI对话磨出第1版框架<br>不要追求完美，先跑通一轮</p>
+            </div>
+            <div style="margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="background:#D32F2F;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">3</span>
+                <span style="font-size:15px;font-weight:600;">跑一次4步流（5分钟）</span>
+              </div>
+              <p style="font-size:13px;color:#8D6E63;padding-left:32px;">任务定义 → AI输出 → 识别幻觉 → 辨证纠正 → 验收</p>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="background:#D32F2F;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">4</span>
+                <span style="font-size:15px;font-weight:600;">截图保存，标注变化（2分钟）</span>
+              </div>
+              <p style="font-size:13px;color:#8D6E63;padding-left:32px;">把你这次的「任务定义」截图发到群里<br>标注：以前卡点在哪，现在解决了什么</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="max-width:900px;text-align:center;padding:12px 20px;background:#FFF8E1;border-color:#FFECB3;">
+        <p style="font-size:15px;color:#5D4037;font-weight:600;">💡 核心体验：不是「AI帮我写」，是「我和AI磨出了协作方式」——这个方式是你的，换个人用同样的工具，产出也不一样</p>
       </div>
       <div class="page-num">17 / 18</div>
     </div>
