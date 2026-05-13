@@ -188,45 +188,71 @@
 
   <!-- Slide 5: Tool Truth -->
   <div class="slide">
-    <div class="slide-inner">
-      <h2>工具真相 — 所有AI都有病</h2>
-      <p class="subtitle" style="margin-bottom:28px;">免费够用，付费也有幻觉，诚实面对优缺点</p>
-      <div class="flex-row" style="align-items:flex-start;">
-        <div class="col-2">
-          <div class="card card-green" style="margin-bottom:16px;">
+    <div class="slide-inner" style="padding:40px 80px;">
+      <h2 style="font-size:36px;margin-bottom:8px;">工具真相 — LLM 和 AGENT 是两回事</h2>
+      <p class="subtitle" style="margin-bottom:20px;">先分清维度，再选工具；所有模型都会幻觉</p>
+
+      <div style="display:flex;gap:16px;width:100%;max-width:1200px;margin-bottom:16px;">
+        <!-- LLM -->
+        <div style="flex:1;">
+          <div class="card card-green" style="height:100%;">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-              <span class="icon-med">💚</span>
-              <h3 style="color:#2E7D32;">免费工具</h3>
+              <span class="icon-med">💬</span>
+              <h3 style="color:#2E7D32;">LLM（大语言模型）— 对话生成</h3>
             </div>
-            <div style="margin-bottom:16px;">
+            <p style="font-size:13px;color:#8D6E63;margin-bottom:12px;">你输入文字，它生成文字。像高级搜索引擎+写作助手。</p>
+            <div style="margin-bottom:12px;">
               <span class="badge badge-green">DeepSeek</span>
-              <p style="font-size:14px;margin-top:6px;"><strong>优点：</strong>不翻墙、中文好、免费<br><strong>缺点：</strong>长对话失忆、幻觉不可避免、上下文有限</p>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>不翻墙、中文好、免费<br><strong>缺点：</strong>长对话失忆、幻觉不可避免</p>
+            </div>
+            <div style="margin-bottom:12px;">
+              <span class="badge badge-green">豆包</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>国内可用、生图适合中老年审美<br><strong>缺点：</strong>文本推理弱、同样会幻觉</p>
+            </div>
+            <div style="margin-bottom:12px;">
+              <span class="badge badge-orange">Gemini 3.1 Pro</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>上下文大（100万token）、多模态<br><strong>缺点：</strong>需翻墙、复杂推理仍翻车、也会幻觉</p>
             </div>
             <div>
-              <span class="badge badge-green">豆包</span>
-              <p style="font-size:14px;margin-top:6px;"><strong>优点：</strong>国内可用、生图适合中老年审美<br><strong>缺点：</strong>文本推理弱、同样会幻觉</p>
+              <span class="badge badge-red">GPT-5.5 / ChatGPT</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>推理强、功能全、生态成熟<br><strong>缺点：</strong>付费、幻觉减少但未消除</p>
             </div>
           </div>
         </div>
-        <div class="col-2">
-          <div class="card card-pink">
+
+        <!-- AGENT -->
+        <div style="flex:1;">
+          <div class="card card-pink" style="height:100%;">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-              <span class="icon-med">💗</span>
-              <h3 style="color:#C62828;">付费工具</h3>
+              <span class="icon-med">🤖</span>
+              <h3 style="color:#C62828;">AGENT（智能体）— 自动化执行</h3>
             </div>
-            <div style="margin-bottom:16px;">
-              <span class="badge badge-red">Gemini 5.5</span>
-              <p style="font-size:14px;margin-top:6px;"><strong>优点：</strong>上下文大、多模态<br><strong>缺点：</strong>需翻墙、复杂推理仍翻车、也会幻觉</p>
+            <p style="font-size:13px;color:#8D6E63;margin-bottom:12px;">你描述目标，它自动操作文件/写代码/执行流程。像实习生。</p>
+            <div style="margin-bottom:12px;">
+              <span class="badge badge-red">Cursor</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>直接改代码、操作文件、$20/月<br><strong>缺点：</strong>需配置环境、学习成本高</p>
+            </div>
+            <div style="margin-bottom:12px;">
+              <span class="badge badge-red">Claude Code</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>命令行AI、批量处理、自动化强<br><strong>缺点：</strong>需VS Code环境、英文为主</p>
             </div>
             <div>
-              <span class="badge badge-red">Cursor / Claude Code</span>
-              <p style="font-size:14px;margin-top:6px;"><strong>优点：</strong>直接操作文件、自动化执行<br><strong>缺点：</strong>需配置环境、学习成本高、同样需要人工检查</p>
+              <span class="badge badge-green">Trae Solo（推荐）</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>字节跳动出品、免费、内置模型、国内直连不用翻墙、有每日额度次日重置<br><strong>缺点：</strong>大项目代码质量略弱、可能过度自动化</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="card" style="max-width:800px;text-align:center;margin-top:16px;">
-        <p style="font-size:18px;color:#D32F2F;font-weight:600;">⚠️ 诚实结论：没有AI不会幻觉，只有协作流程能降低损失</p>
+
+      <div style="display:flex;gap:16px;width:100%;max-width:1200px;">
+        <div class="card" style="flex:1;text-align:center;padding:12px 16px;">
+          <p style="font-size:14px;color:#5D4037;font-weight:600;">📌 关键认知 1：LLM 和 AGENT 不是升级关系，是不同维度</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:4px;">LLM 是"大脑"，AGENT 是"大脑+手脚"。AGENT 底层也是 LLM，但它会自己操作电脑。</p>
+        </div>
+        <div class="card" style="flex:1;text-align:center;padding:12px 16px;background:#FFEBEE;border-color:#FFCDD2;">
+          <p style="font-size:14px;color:#D32F2F;font-weight:600;">⚠️ 关键认知 2：没有AI不会幻觉，只有协作流程能降低损失</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:4px;">DeepSeek会、Gemini 3.1 Pro会、GPT-5.5也会。AGENT也会操作错文件。</p>
+        </div>
       </div>
       <div class="page-num">05 / 18</div>
     </div>
@@ -304,49 +330,56 @@
   <div class="slide">
     <div class="slide-inner">
       <h2>一条好文案，从会说话开始</h2>
-      <p class="subtitle" style="margin-bottom:24px;">核心公式 + A/B Test 对比</p>
-      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px;">
-        <div class="formula-box">身份</div>
-        <span style="font-size:24px;color:#8D6E63;">+</span>
-        <div class="formula-box">动作</div>
-        <span style="font-size:24px;color:#8D6E63;">+</span>
-        <div class="formula-box">输入</div>
-        <span style="font-size:24px;color:#8D6E63;">+</span>
+      <p class="subtitle" style="margin-bottom:20px;">核心公式：约束AI发散，让它产出符合你需求的内容</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;">
+        <div class="formula-box">角色</div>
+        <span style="font-size:22px;color:#8D6E63;">+</span>
+        <div class="formula-box">背景</div>
+        <span style="font-size:22px;color:#8D6E63;">+</span>
+        <div class="formula-box">目标</div>
+        <span style="font-size:22px;color:#8D6E63;">+</span>
         <div class="formula-box">要求</div>
-        <span style="font-size:24px;color:#8D6E63;">=</span>
-        <div style="font-size:40px;">🎯</div>
+        <span style="font-size:22px;color:#8D6E63;">+</span>
+        <div class="formula-box">约束</div>
+        <span style="font-size:22px;color:#8D6E63;">=</span>
+        <div style="font-size:36px;">🎯</div>
       </div>
-      <div style="display:flex;gap:20px;width:100%;max-width:1100px;">
-        <div style="flex:1;background:#F5F5F5;border-radius:16px;padding:20px;border:2px solid #E0E0E0;">
-          <div style="text-align:center;margin-bottom:12px;">
-            <span style="display:inline-block;background:#EF5350;color:#fff;padding:4px 16px;border-radius:20px;font-size:14px;font-weight:600;">❌ 坏提示词</span>
+      <div style="display:flex;gap:16px;width:100%;max-width:1100px;">
+        <div style="flex:1;background:#F5F5F5;border-radius:16px;padding:16px;border:2px solid #E0E0E0;">
+          <div style="text-align:center;margin-bottom:10px;">
+            <span style="display:inline-block;background:#EF5350;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">❌ 坏提示词</span>
           </div>
-          <div class="chat-ai bad" style="margin:0 auto 12px;max-width:100%;">帮我写一条推销课程的文案</div>
-          <div style="background:#fff;border-radius:12px;padding:16px;text-align:center;">
-            <p style="font-size:13px;color:#9E9E9E;margin-bottom:8px;">AI输出：</p>
-            <p style="font-size:14px;color:#9E9E9E;">亲爱的用户，我们的课程非常专业，老师经验丰富，快来报名吧！</p>
-            <div style="margin-top:10px;font-size:24px;">❌ ❌ ❌</div>
+          <div class="chat-ai bad" style="margin:0 auto 10px;max-width:100%;font-size:13px;">帮我写一条推销课程的文案</div>
+          <div style="background:#fff;border-radius:12px;padding:14px;text-align:center;">
+            <p style="font-size:12px;color:#9E9E9E;margin-bottom:6px;">AI输出：</p>
+            <p style="font-size:13px;color:#9E9E9E;">亲爱的用户，我们的课程非常专业，老师经验丰富，快来报名吧！</p>
+            <div style="margin-top:8px;font-size:20px;">❌ ❌ ❌</div>
           </div>
         </div>
-        <div style="flex:1;background:#FFEBEE;border-radius:16px;padding:20px;border:2px solid #FFCDD2;">
-          <div style="text-align:center;margin-bottom:12px;">
-            <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 16px;border-radius:20px;font-size:14px;font-weight:600;">✅ 好提示词</span>
+        <div style="flex:1;background:#FFEBEE;border-radius:16px;padding:16px;border:2px solid #FFCDD2;">
+          <div style="text-align:center;margin-bottom:10px;">
+            <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">✅ 好提示词</span>
           </div>
-          <div class="chat-user" style="margin:0 auto 12px;max-width:100%;">你是中老年课程资深运营，用户是50-60岁已购八段锦人群，现在要推五禽戏体验课，请输出3-4段式弱营销文案，120字以内，带emoji，突出腰背痛点</div>
-          <div style="background:#fff;border-radius:12px;padding:16px;text-align:center;">
-            <p style="font-size:13px;color:#8D6E63;margin-bottom:8px;">AI输出：</p>
-            <p style="font-size:14px;color:#5D4037;">😣 冬天洗碗站一会儿腰就酸...<br>👍 我最近跟着传承人练了套五禽戏...</p>
-            <div style="margin-top:10px;font-size:24px;">✅ ✅ ✅</div>
+          <div class="chat-user" style="margin:0 auto 10px;max-width:100%;font-size:12px;line-height:1.6;">
+            <strong>【角色】</strong>你是中老年课程资深运营<br>
+            <strong>【背景】</strong>用户是50-60岁已购八段锦人群，冬季腰背酸痛高发<br>
+            <strong>【目标】</strong>推五禽戏体验课，引导领课<br>
+            <strong>【要求】</strong>3-4段式弱营销文案，120字以内，每段带emoji，像朋友推荐<br>
+            <strong>【约束】</strong>不能出现"健康""养生""中医"等违禁词
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:14px;text-align:center;">
+            <p style="font-size:12px;color:#8D6E63;margin-bottom:6px;">AI输出：</p>
+            <p style="font-size:13px;color:#5D4037;">😣 冬天洗碗站一会儿腰就酸...<br>👍 我最近跟着传承人练了套五禽戏...</p>
+            <div style="margin-top:8px;font-size:20px;">✅ ✅ ✅</div>
           </div>
         </div>
       </div>
-      <div class="tag-row">
-        <div class="tag-item">身份</div>
-        <div class="tag-item">画像</div>
-        <div class="tag-item">动作</div>
+      <div class="tag-row" style="margin-top:14px;">
+        <div class="tag-item">角色</div>
+        <div class="tag-item">背景</div>
+        <div class="tag-item">目标</div>
         <div class="tag-item">要求</div>
-        <div class="tag-item">违禁词</div>
-        <div class="tag-item">框架</div>
+        <div class="tag-item">约束</div>
       </div>
       <div class="page-num">08 / 18</div>
     </div>
@@ -391,6 +424,7 @@
       </div>
       <div class="card" style="max-width:900px;text-align:center;margin-top:24px;background:#FFF8E1;border-color:#FFECB3;">
         <p style="font-size:18px;color:#5D4037;font-weight:700;">把不变的信息存起来，每次只改变量</p>
+        <p style="font-size:14px;color:#8D6E63;margin-top:6px;">错误的背景信息会让AI输出全盘错误。背景 = 角色 + 画像 + 参考框架，约束 = 违禁词 + 边界 + 标准。</p>
       </div>
       <div class="page-num">09 / 18</div>
     </div>
@@ -400,7 +434,10 @@
   <div class="slide">
     <div class="slide-inner" style="padding:40px 80px;">
       <h2 style="font-size:36px;margin-bottom:8px;">Step1 任务定义 — 文案场景</h2>
-      <p class="subtitle" style="margin-bottom:20px;">不是填模板，是和AI对话把任务从模糊磨到清晰</p>
+      <p class="subtitle" style="margin-bottom:12px;">明确对象、类型、目的、输出、边界、约束、标准。不是填模板，是和AI对话磨到清晰</p>
+      <div class="card" style="max-width:1000px;text-align:center;margin-bottom:12px;padding:8px 16px;">
+        <p style="font-size:13px;color:#5D4037;"><strong>任务定义 =</strong> 对象（推什么课）+ 类型（文案/复盘）+ 目的（引导领课）+ 输出（格式/字数）+ 边界（不能说什么）+ 约束（违禁词/风格）+ 标准（可直接下发）</p>
+      </div>
       <div style="display:flex;gap:16px;width:100%;max-width:1200px;">
         <div style="flex:1;">
           <div style="margin-bottom:12px;">
@@ -500,7 +537,7 @@
   <div class="slide">
     <div class="slide-inner" style="padding:40px 80px;">
       <h2 style="font-size:36px;margin-bottom:8px;">Step1 延伸 — 方法论打磨对话</h2>
-      <p class="subtitle" style="margin-bottom:16px;">不知道从何开始？让AI反问你，一起磨出属于你的SOP</p>
+      <p class="subtitle" style="margin-bottom:16px;">不知道从何开始？两种方式：主动补充背景信息，或让AI反问你</p>
       <div style="display:flex;gap:16px;width:100%;max-width:1200px;">
         <div style="flex:1;">
           <div style="margin-bottom:10px;">
@@ -544,7 +581,7 @@
         </div>
       </div>
       <div class="card" style="max-width:900px;text-align:center;margin-top:10px;padding:10px 20px;">
-        <p style="font-size:15px;color:#D32F2F;font-weight:600;">🎯 方法论不是背下来的，是AI反问你、你回答它，一起磨出来的</p>
+        <p style="font-size:15px;color:#D32F2F;font-weight:600;">🎯 方法论不是背下来的：你可以主动交代背景，也可以让AI反问你。两种方式一起用，边界更清晰</p>
       </div>
       <div class="page-num">12 / 18</div>
     </div>
