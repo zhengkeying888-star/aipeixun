@@ -3,300 +3,711 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI赋能实战培训 — 让AI帮你干活</title>
+<title>AI赋能实战培训</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body {
     width: 100%; height: 100%;
     overflow: hidden;
     font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-    background: #fff;
-    color: #333;
+    background: #f5f5f5;
   }
   .slideshow {
     width: 100vw; height: 100vh;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .slide {
-    position: absolute; inset: 0;
+    position: absolute;
+    inset: 0;
     display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 64px 80px 96px 80px;
+    padding: 0;
     background: #fff;
   }
-  .slide.active { display: flex; }
+  .slide.active { display: block; }
 
-  /* 淡粉色光晕 */
-  .slide::before {
-    content: "";
-    position: absolute;
-    top: -10%; left: -10%;
-    width: 50%; height: 70%;
-    background: radial-gradient(circle, rgba(255,200,200,0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  /* 底部渐变条 */
-  .slide::after {
-    content: "";
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 56px;
-    background: linear-gradient(90deg, #FF6B6B, #FF9E9E);
-  }
-
-  /* 品牌标识 */
-  .brand {
-    position: absolute;
-    bottom: 14px; left: 40px;
-    z-index: 10;
-    color: #fff;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .brand-logo {
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 1px;
-  }
-  .brand-tag {
-    opacity: 0.9;
-    font-size: 13px;
-  }
-
-  /* 右上角红点 */
-  .dots {
-    position: absolute;
-    top: 40px; right: 48px;
-    display: flex;
-    gap: 6px;
-    z-index: 10;
-  }
-  .dots span {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #E53935;
-    display: inline-block;
-  }
-
-  /* 页面指示器 */
-  .page-num {
-    position: absolute;
-    bottom: 70px; right: 48px;
-    font-size: 13px;
-    color: #FF8A8A;
-    z-index: 10;
-  }
-
-  /* 内容区 */
-  .content {
-    width: 100%;
-    max-width: 1100px;
-    z-index: 5;
-  }
-
-  h1 {
-    font-size: 44px;
-    font-weight: 700;
-    color: #E53935;
-    margin-bottom: 32px;
-    line-height: 1.3;
-  }
-  h2 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #E53935;
-    margin-bottom: 28px;
-    line-height: 1.3;
-  }
-  h3 {
-    font-size: 22px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 16px;
-    margin-top: 20px;
-  }
-  p, li {
-    font-size: 20px;
-    line-height: 1.7;
-    color: #444;
-    margin-bottom: 12px;
-  }
-  ul { list-style: none; padding-left: 0; }
-  li {
+  /* 16:9 aspect ratio container */
+  .slide-inner {
+    width: 100%; height: 100%;
+    max-width: 1600px;
+    max-height: 900px;
+    margin: 0 auto;
     position: relative;
-    padding-left: 28px;
-  }
-  li::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 12px;
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
+    background: #fff;
+    overflow: hidden;
   }
 
-  .subtitle {
-    font-size: 22px;
-    color: #666;
-    margin-top: -16px;
-    margin-bottom: 40px;
-  }
-  .tag {
-    display: inline-block;
-    background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
-    color: #fff;
-    padding: 4px 14px;
-    border-radius: 16px;
-    font-size: 14px;
-    margin-bottom: 20px;
-  }
-
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-top: 20px;
-  }
-  .col-box {
-    border-radius: 16px;
-    padding: 24px;
-    border: 2px solid #f0f0f0;
-  }
-  .col-box.good {
-    border-color: #FF9E9E;
-    background: rgba(255,158,158,0.06);
-  }
-  .col-box.bad {
-    border-color: #ddd;
-    background: #fafafa;
-  }
-  .col-box h4 {
-    font-size: 16px;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .col-box.good h4 { color: #E53935; }
-  .col-box.bad h4 { color: #999; }
-
-  .highlight-box {
-    background: linear-gradient(135deg, rgba(255,107,107,0.08), rgba(255,158,158,0.08));
-    border-left: 4px solid #FF6B6B;
-    padding: 20px 24px;
-    border-radius: 0 12px 12px 0;
-    margin: 16px 0;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 16px;
-    font-size: 17px;
-  }
-  th, td {
-    padding: 12px 14px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-  }
-  th {
-    background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
-    color: #fff;
-    font-weight: 600;
-  }
-  tr:hover { background: rgba(255,158,158,0.04); }
-
-  .big-formula {
-    font-size: 36px;
+  /* Typography */
+  h1 {
+    font-size: 56px;
     font-weight: 700;
-    color: #E53935;
-    text-align: center;
-    margin: 24px 0;
+    color: #511D12;
+    line-height: 1.2;
     letter-spacing: 2px;
   }
+  h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #511D12;
+    line-height: 1.3;
+    letter-spacing: 1px;
+  }
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #511D12;
+    line-height: 1.4;
+  }
+  p, li {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #5a4a42;
+  }
 
-  .step-flow {
+  /* Color blocks - from 4月述职PPT */
+  .block-orange {
+    background: #F77945;
+    color: #fff;
+    border-radius: 4px;
+    padding: 16px 24px;
+  }
+  .block-pink {
+    background: #FEEEE1;
+    color: #511D12;
+    border-radius: 4px;
+    padding: 20px 24px;
+  }
+  .block-brown {
+    background: #BE9290;
+    color: #fff;
+    border-radius: 4px;
+    padding: 16px 24px;
+  }
+  .block-dark {
+    background: #511D12;
+    color: #fff;
+    border-radius: 4px;
+    padding: 16px 24px;
+  }
+
+  /* Layout utilities */
+  .abs { position: absolute; }
+  .flex { display: flex; }
+  .flex-col { flex-direction: column; }
+  .items-center { align-items: center; }
+  .justify-center { justify-content: center; }
+  .gap-4 { gap: 16px; }
+  .gap-6 { gap: 24px; }
+  .gap-8 { gap: 32px; }
+
+  .page-num {
+    position: absolute;
+    bottom: 32px; right: 48px;
+    font-size: 13px;
+    color: #BE9290;
+    z-index: 10;
+  }
+
+  /* ===== Slide 1: Cover ===== */
+  .s1 { }
+  .s1-bg-img {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #fff 0%, #FFFAF7 50%, #FEEEE1 100%);
+  }
+  .s1-content {
+    position: absolute;
+    left: 80px; top: 50%;
+    transform: translateY(-50%);
+    max-width: 700px;
+  }
+  .s1-tag {
+    display: inline-block;
+    background: #F77945;
+    color: #fff;
+    padding: 6px 20px;
+    border-radius: 2px;
+    font-size: 15px;
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+  }
+  .s1 h1 {
+    font-size: 64px;
+    margin-bottom: 16px;
+  }
+  .s1-subtitle {
+    font-size: 28px;
+    color: #BE9290;
+    margin-bottom: 60px;
+  }
+  .s1-info {
+    font-size: 16px;
+    color: #999;
+    line-height: 2;
+  }
+  .s1-info strong {
+    color: #511D12;
+    font-weight: 600;
+  }
+  .s1-accent-line {
+    position: absolute;
+    left: 0; top: 160px;
+    width: 60px; height: 4px;
+    background: #F77945;
+  }
+  .s1-right-block {
+    position: absolute;
+    right: 80px; top: 50%;
+    transform: translateY(-50%);
+    width: 320px; height: 320px;
+    background: #FEEEE1;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    margin-top: 20px;
   }
-  .step-item {
-    background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
-    color: #fff;
-    padding: 16px 20px;
-    border-radius: 12px;
-    text-align: center;
-    min-width: 140px;
+  .s1-right-block-inner {
+    width: 280px; height: 280px;
+    border: 2px solid #F77945;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .step-item .step-time {
-    font-size: 13px;
-    opacity: 0.9;
-    margin-bottom: 4px;
-  }
-  .step-item .step-title {
-    font-size: 16px;
-    font-weight: 600;
-  }
-  .step-arrow {
-    font-size: 24px;
-    color: #FF9E9E;
+  .s1-right-block-inner span {
+    font-size: 120px;
+    font-weight: 700;
+    color: #F77945;
+    opacity: 0.15;
   }
 
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-top: 16px;
+  /* ===== Slide 2: Story ===== */
+  .s2 { }
+  .s2-header {
+    position: absolute;
+    left: 80px; top: 60px;
   }
-  .grid-3 {
+  .s2-accent {
+    position: absolute;
+    left: 0; top: 0;
+    width: 48px; height: 4px;
+    background: #F77945;
+  }
+  .s2-header h2 {
+    margin-top: 16px;
+    font-size: 36px;
+  }
+  .s2-story-block {
+    position: absolute;
+    left: 80px; top: 180px;
+    width: 700px;
+    background: #FEEEE1;
+    border-radius: 4px;
+    padding: 40px;
+  }
+  .s2-story-block h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #511D12;
+  }
+  .s2-story-block p {
+    font-size: 17px;
+    line-height: 2;
+    color: #5a4a42;
+    margin-bottom: 12px;
+  }
+  .s2-story-block .highlight {
+    color: #F77945;
+    font-weight: 600;
+  }
+  .s2-conclusion {
+    position: absolute;
+    left: 80px; bottom: 120px;
+    display: flex;
+    gap: 32px;
+  }
+  .s2-concl-item {
+    background: #fff;
+    border-left: 3px solid #F77945;
+    padding: 16px 24px;
+    font-size: 16px;
+    color: #666;
+    max-width: 300px;
+  }
+  .s2-concl-item strong {
+    color: #511D12;
+  }
+
+  /* ===== Slide 3: Can/Cannot ===== */
+  .s3 { }
+  .s3-header {
+    position: absolute;
+    left: 80px; top: 60px;
+  }
+  .s3-header .s2-accent { position: relative; margin-bottom: 16px; }
+  .s3-content {
+    position: absolute;
+    left: 80px; top: 160px;
+    right: 80px;
+    display: flex;
+    gap: 40px;
+  }
+  .s3-col {
+    flex: 1;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .s3-col-header {
+    padding: 20px 28px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .s3-col-body {
+    padding: 28px;
+    background: #FFFAF7;
+  }
+  .s3-col-body ul { list-style: none; padding: 0; }
+  .s3-col-body li {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 17px;
+    color: #5a4a42;
+  }
+  .s3-col-body li:last-child { border-bottom: none; }
+  .s3-bottom-line {
+    position: absolute;
+    left: 80px; right: 80px;
+    bottom: 100px;
+    text-align: center;
+    padding: 20px;
+    background: #511D12;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 4px;
+  }
+
+  /* ===== Slide 4: 3 Problems ===== */
+  .s4 { }
+  .s4-header {
+    position: absolute;
+    left: 80px; top: 60px;
+  }
+  .s4-header .s2-accent { position: relative; margin-bottom: 16px; }
+  .s4-cards {
+    position: absolute;
+    left: 80px; top: 180px;
+    right: 80px;
+    display: flex;
+    gap: 32px;
+  }
+  .s4-card {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 40px 32px;
+    text-align: center;
+  }
+  .s4-card-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: #F77945;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 auto 20px;
+  }
+  .s4-card h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  .s4-card p {
+    font-size: 16px;
+    color: #888;
+  }
+  .s4-takeaway {
+    position: absolute;
+    left: 80px; right: 80px;
+    bottom: 100px;
+    background: #FEEEE1;
+    border-radius: 4px;
+    padding: 28px 40px;
+  }
+  .s4-takeaway h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #511D12;
+  }
+  .s4-takeaway p {
+    font-size: 16px;
+    color: #7a6a62;
+    margin-bottom: 6px;
+  }
+
+  /* ===== Slide 5: Formula ===== */
+  .s5 { }
+  .s5-header {
+    position: absolute;
+    left: 80px; top: 60px;
+  }
+  .s5-header .s2-accent { position: relative; margin-bottom: 16px; }
+  .s5-formula {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 180px;
+    text-align: center;
+    padding: 32px;
+    background: #511D12;
+    border-radius: 4px;
+  }
+  .s5-formula p {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 4px;
+  }
+  .s5-compare {
+    position: absolute;
+    left: 80px; right: 80px;
+    top: 320px;
+    display: flex;
+    gap: 32px;
+  }
+  .s5-compare-box {
+    flex: 1;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .s5-compare-label {
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .s5-compare-body {
+    padding: 24px;
+    background: #FFFAF7;
+    min-height: 200px;
+  }
+  .s5-compare-body .prompt-text {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 16px;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    font-family: monospace;
+    margin-bottom: 12px;
+  }
+  .s5-compare-body .result {
+    font-size: 15px;
+    color: #999;
+  }
+
+  /* ===== Slide 6: 6 Elements ===== */
+  .s6 { }
+  .s6-header {
+    position: absolute;
+    left: 80px; top: 60px;
+  }
+  .s6-header .s2-accent { position: relative; margin-bottom: 16px; }
+  .s6-grid {
+    position: absolute;
+    left: 80px; top: 160px;
+    right: 80px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    margin-top: 16px;
   }
-  .card {
-    border: 2px solid #f5f5f5;
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
+  .s6-item {
+    background: #fff;
+    border: 1px solid #f0e6e0;
+    border-radius: 4px;
+    padding: 28px;
   }
-  .card-num {
+  .s6-item-num {
     width: 36px; height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
+    background: #F77945;
     color: #fff;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    margin: 0 auto 12px;
-  }
-  .card-title {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .s6-item h3 {
+    font-size: 18px;
     margin-bottom: 8px;
   }
-  .card-desc {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.5;
+  .s6-item p {
+    font-size: 15px;
+    color: #888;
+    line-height: 1.6;
+  }
+  .s6-bottom {
+    position: absolute;
+    left: 80px; right: 80px;
+    bottom: 80px;
+    text-align: center;
+    padding: 20px;
+    background: #FEEEE1;
+    border-radius: 4px;
+  }
+  .s6-bottom p {
+    color: #511D12;
+    font-size: 20px;
+    font-weight: 600;
   }
 
-  .center { text-align: center; }
-  .mt-2 { margin-top: 16px; }
-  .mt-3 { margin-top: 24px; }
+  /* ===== Slide 7: Loading Methods ===== */
+  .s7 { }
+  .s7-header {
+    position: absolute;
+    left: 80px; top: 60px;
+  }
+  .s7-header .s2-accent { position: relative; margin-bottom: 16px; }
+  .s7-cards {
+    position: absolute;
+    left: 80px; top: 160px;
+    right: 80px;
+    display: flex;
+    gap: 24px;
+  }
+  .s7-card {
+    flex: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #eee;
+  }
+  .s7-card.rec {
+    border-color: #F77945;
+  }
+  .s7-card-header {
+    padding: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #FFFAF7;
+    color: #BE9290;
+  }
+  .s7-card.rec .s7-card-header {
+    background: #F77945;
+    color: #fff;
+  }
+  .s7-card-body {
+    padding: 24px;
+    min-height: 200px;
+  }
+  .s7-card-body h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .s7-card-body p {
+    font-size: 15px;
+    color: #888;
+    line-height: 1.7;
+  }
+  .s7-tip {
+    position: absolute;
+    left: 80px; right: 80px;
+    bottom: 80px;
+    padding: 20px 28px;
+    background: #511D12;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 16px;
+  }
 
-  /* 导航 */
+  /* ===== Slide 8: 4 Solutions ===== */
+  .s8 { }
+  .s8-header {
+    position: absolute;
+    left: 80px; top: 60px;
+  }
+  .s8-header .s2-accent { position: relative; margin-bottom: 16px; }
+  .s8-table {
+    position: absolute;
+    left: 80px; top: 160px;
+    right: 80px;
+  }
+  .s8-table-row {
+    display: flex;
+    border-bottom: 1px solid #f0e6e0;
+    min-height: 100px;
+  }
+  .s8-table-row:last-child { border-bottom: none; }
+  .s8-table-row:first-child {
+    background: #511D12;
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+    min-height: 56px;
+  }
+  .s8-table-row:first-child .s8-col {
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .s8-col {
+    flex: 1;
+    padding: 20px 24px;
+    font-size: 16px;
+    color: #5a4a42;
+    display: flex;
+    align-items: center;
+  }
+  .s8-col:first-child {
+    flex: 0 0 140px;
+    font-weight: 600;
+    color: #F77945;
+  }
+  .s8-table-row:first-child .s8-col:first-child {
+    color: #fff;
+  }
+
+  /* ===== Slide 9: Practice ===== */
+  .s9 { }
+  .s9-header {
+    position: absolute;
+    left: 80px; top: 60px;
+  }
+  .s9-header .s2-accent { position: relative; margin-bottom: 16px; }
+  .s9-flow {
+    position: absolute;
+    left: 80px; top: 160px;
+    right: 80px;
+    display: flex;
+    gap: 24px;
+  }
+  .s9-step {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #f0e6e0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .s9-step-header {
+    padding: 16px 24px;
+    background: #F77945;
+    color: #fff;
+  }
+  .s9-step-header .time {
+    font-size: 13px;
+    opacity: 0.9;
+  }
+  .s9-step-header .title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .s9-step-body {
+    padding: 24px;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.7;
+  }
+  .s9-tracks {
+    position: absolute;
+    left: 80px; right: 80px;
+    bottom: 120px;
+    display: flex;
+    gap: 24px;
+  }
+  .s9-track {
+    flex: 1;
+    padding: 20px 24px;
+    border-radius: 4px;
+  }
+  .s9-track-a { background: #FEEEE1; }
+  .s9-track-b { background: #FFFAF7; border: 1px solid #f0e6e0; }
+  .s9-track h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #511D12;
+  }
+  .s9-track p {
+    font-size: 14px;
+    color: #888;
+  }
+
+  /* ===== Slide 10: Summary ===== */
+  .s10 { }
+  .s10-header {
+    position: absolute;
+    left: 80px; top: 60px;
+  }
+  .s10-header .s2-accent { position: relative; margin-bottom: 16px; }
+  .s10-grid {
+    position: absolute;
+    left: 80px; top: 160px;
+    right: 80px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .s10-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #f0e6e0;
+    border-radius: 4px;
+  }
+  .s10-item-num {
+    width: 48px; height: 48px;
+    background: #511D12;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .s10-item h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .s10-item p {
+    font-size: 15px;
+    color: #888;
+  }
+  .s10-plan {
+    position: absolute;
+    left: 80px; right: 80px;
+    bottom: 160px;
+    background: #FEEEE1;
+    border-radius: 4px;
+    padding: 20px 28px;
+  }
+  .s10-plan p {
+    font-size: 15px;
+    color: #7a6a62;
+  }
+  .s10-quote {
+    position: absolute;
+    left: 80px; right: 80px;
+    bottom: 60px;
+    text-align: center;
+    padding: 16px;
+    background: #511D12;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  /* Navigation */
   .nav-hint {
     position: fixed;
-    bottom: 70px;
+    bottom: 8px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 12px;
@@ -305,354 +716,380 @@
     pointer-events: none;
   }
 
-  @media (max-width: 900px) {
-    .slide { padding: 40px 30px 80px 30px; }
-    h1 { font-size: 28px; }
-    h2 { font-size: 22px; }
-    p, li { font-size: 16px; }
-    .two-col, .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    .step-flow { flex-direction: column; }
-    .step-arrow { transform: rotate(90deg); }
+  @media (max-width: 1000px) {
+    h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 18px; }
+    p, li { font-size: 14px; }
   }
 </style>
 </head>
 <body>
 <div class="slideshow" id="slideshow">
 
-  <!-- Slide 1: 封面 -->
+  <!-- Slide 1: Cover -->
   <div class="slide active">
-    <div class="dots"><span></span><span></span></div>
-    <div class="content center">
-      <div class="tag">私域运营团队 · 2026年5月</div>
-      <h1 style="font-size:52px;margin-bottom:20px;">AI赋能实战培训</h1>
-      <p class="subtitle" style="font-size:26px;color:#666;">让AI帮你干活</p>
-      <p style="margin-top:40px;color:#999;font-size:16px;">培训时长约2小时 | 现场实操 + 当场产出</p>
+    <div class="slide-inner s1">
+      <div class="s1-bg-img"></div>
+      <div class="s1-accent-line"></div>
+      <div class="s1-content">
+        <div class="s1-tag">私域运营团队 · 2026年5月</div>
+        <h1>AI赋能<br>实战培训</h1>
+        <p class="s1-subtitle">让AI帮你干活</p>
+        <div class="s1-info">
+          <p><strong>培训对象</strong>　私域运营团队（文案运营 / 数据策略运营）</p>
+          <p><strong>培训时长</strong>　约2小时　|　<strong>形式</strong>　PPT演示 + 现场实操</p>
+        </div>
+      </div>
+      <div class="s1-right-block">
+        <div class="s1-right-block-inner">
+          <span>AI</span>
+        </div>
+      </div>
+      <div class="page-num">01 / 10</div>
     </div>
-    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
-    <div class="page-num">1 / 10</div>
   </div>
 
-  <!-- Slide 2: 运营小李的故事 -->
+  <!-- Slide 2: Story -->
   <div class="slide">
-    <div class="dots"><span></span><span></span></div>
-    <div class="content">
-      <h2>为什么你觉得"AI不好用"？</h2>
-      <div class="highlight-box">
-        <p><strong>运营小李的一天：</strong></p>
-        <p>每天写10条文案，每次给AI贴800字背景 prompt（身份 + 画像 + 动作 + 违禁词 + 框架）</p>
-        <p>写了10轮后，AI"失忆"了，把<strong>瑜伽</strong>的卖点写成了<strong>太极</strong>的</p>
-        <p>小李觉得：<span style="color:#E53935;font-weight:600;">"AI还没我手写快"</span></p>
+    <div class="slide-inner s2">
+      <div class="s2-header">
+        <div class="s2-accent"></div>
+        <h2>为什么你觉得"AI不好用"？</h2>
       </div>
-      <div class="two-col mt-3">
-        <div class="col-box bad">
-          <h4><span style="font-size:20px;">❌</span> 问题不在AI</h4>
-          <p style="font-size:16px;">在"每次对话都要重新教AI你是谁"</p>
+      <div class="s2-story-block">
+        <h3>运营小李的一天</h3>
+        <p>每天写10条文案，每次给AI贴<strong>800字背景</strong> prompt</p>
+        <p>写了10轮后，AI"失忆"了，把<span class="highlight">瑜伽</span>的卖点写成了<span class="highlight">太极</span>的</p>
+        <p>小李觉得：<span class="highlight">"AI还没我手写快"</span></p>
+      </div>
+      <div class="s2-conclusion">
+        <div class="s2-concl-item">
+          <strong>问题不在AI</strong><br>
+          在"每次对话都要重新教AI你是谁"
         </div>
-        <div class="col-box good">
-          <h4><span style="font-size:20px;">✓</span> 今天要解决</h4>
-          <p style="font-size:16px;">① AI失忆 ② AI胡说 ③ AI重复</p>
+        <div class="s2-concl-item">
+          <strong>今天解决</strong><br>
+          ① AI失忆　② AI胡说　③ AI重复
         </div>
       </div>
+      <div class="page-num">02 / 10</div>
     </div>
-    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
-    <div class="page-num">2 / 10</div>
   </div>
 
-  <!-- Slide 3: AI能做什么/不能做什么 -->
+  <!-- Slide 3: Can/Cannot -->
   <div class="slide">
-    <div class="dots"><span></span><span></span></div>
-    <div class="content">
-      <h2>AI是"高效执行员"，不是"创意总监"</h2>
-      <div class="two-col">
-        <div class="col-box good">
-          <h4>✓ AI 能做</h4>
-          <ul>
-            <li>按你定义的框架输出文案</li>
-            <li>帮你检查违禁词</li>
-            <li>基于数据做分析和复盘</li>
-          </ul>
+    <div class="slide-inner s3">
+      <div class="s3-header">
+        <div class="s2-accent"></div>
+        <h2>AI是"高效执行员"，不是"创意总监"</h2>
+      </div>
+      <div class="s3-content">
+        <div class="s3-col">
+          <div class="s3-col-header block-orange">✓ AI 能做</div>
+          <div class="s3-col-body">
+            <ul>
+              <li>按你定义的框架输出文案</li>
+              <li>帮你检查违禁词</li>
+              <li>基于数据做分析和复盘</li>
+            </ul>
+          </div>
         </div>
-        <div class="col-box bad">
-          <h4>❌ AI 不能做</h4>
-          <ul>
-            <li>替代你想出一个新的广告位联动主题</li>
-            <li>凭空创作打动用户的"感觉"</li>
-          </ul>
+        <div class="s3-col">
+          <div class="s3-col-header block-brown">✗ AI 不能做</div>
+          <div class="s3-col-body">
+            <ul>
+              <li>替代你想出一个新的广告位联动主题</li>
+              <li>凭空创作打动用户的"感觉"</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="highlight-box mt-3 center">
-        <p style="font-size:22px;font-weight:600;color:#E53935;margin:0;">策略靠人，执行靠AI</p>
-      </div>
+      <div class="s3-bottom-line">策略靠人，执行靠AI</div>
+      <div class="page-num">03 / 10</div>
     </div>
-    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
-    <div class="page-num">3 / 10</div>
   </div>
 
-  <!-- Slide 4: 今天要解决的3个问题 -->
+  <!-- Slide 4: 3 Problems -->
   <div class="slide">
-    <div class="dots"><span></span><span></span></div>
-    <div class="content">
-      <h2>今天培训完，你能带走什么？</h2>
-      <div class="grid-3">
-        <div class="card">
-          <div class="card-num">1</div>
-          <div class="card-title">系统模板</div>
-          <div class="card-desc">让AI记住你的需求<br>不用每次都教</div>
+    <div class="slide-inner s4">
+      <div class="s4-header">
+        <div class="s2-accent"></div>
+        <h2>今天培训完，你能带走什么？</h2>
+      </div>
+      <div class="s4-cards">
+        <div class="s4-card">
+          <div class="s4-card-num">1</div>
+          <h3>系统模板</h3>
+          <p>让AI记住你的需求<br>不用每次都教</p>
         </div>
-        <div class="card">
-          <div class="card-num">2</div>
-          <div class="card-title">输出约束</div>
-          <div class="card-desc">让AI不胡说<br>跑偏了能拉回来</div>
+        <div class="s4-card">
+          <div class="s4-card-num">2</div>
+          <h3>输出约束</h3>
+          <p>让AI不胡说<br>跑偏了能拉回来</p>
         </div>
-        <div class="card">
-          <div class="card-num">3</div>
-          <div class="card-title">角度库</div>
-          <div class="card-desc">让AI产出不重复<br>千篇一律有解了</div>
+        <div class="s4-card">
+          <div class="s4-card-num">3</div>
+          <h3>角度库</h3>
+          <p>让AI产出不重复<br>千篇一律有解了</p>
         </div>
       </div>
-      <div class="highlight-box mt-3">
-        <p><strong>今天你能带走：</strong></p>
+      <div class="s4-takeaway">
+        <h3>今天你能带走</h3>
         <p>✓ 一份「个人系统模板」（以后直接加载，不用重新交代背景）</p>
         <p>✓ 解决AI失忆/幻觉/重复的4个方法</p>
         <p>✓ 数据复盘意识（每周五固定做）</p>
       </div>
+      <div class="page-num">04 / 10</div>
     </div>
-    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
-    <div class="page-num">4 / 10</div>
   </div>
 
-  <!-- Slide 5: 核心公式 -->
+  <!-- Slide 5: Formula -->
   <div class="slide">
-    <div class="dots"><span></span><span></span></div>
-    <div class="content">
-      <h2>一条好文案，从"会说话"开始</h2>
-      <div class="big-formula">你是谁 + 做什么 + 输入什么 + 输出格式</div>
-      <div class="two-col">
-        <div class="col-box bad">
-          <h4>❌ 坏的提示词</h4>
-          <p style="font-size:15px;color:#666;background:#fff;padding:10px;border-radius:8px;margin-top:8px;">"帮我写一条推销课程的文案"</p>
-          <p style="font-size:14px;color:#999;margin-top:8px;">→ 输出空泛、千篇一律</p>
+    <div class="slide-inner s5">
+      <div class="s5-header">
+        <div class="s2-accent"></div>
+        <h2>一条好文案，从"会说话"开始</h2>
+      </div>
+      <div class="s5-formula">
+        <p>你是谁　+　做什么　+　输入什么　+　输出格式</p>
+      </div>
+      <div class="s5-compare">
+        <div class="s5-compare-box">
+          <div class="s5-compare-label block-brown">✗ 坏的提示词</div>
+          <div class="s5-compare-body">
+            <div class="prompt-text">"帮我写一条推销课程的文案"</div>
+            <p class="result">→ 输出空泛、千篇一律</p>
+          </div>
         </div>
-        <div class="col-box good">
-          <h4>✓ 好的提示词</h4>
-          <p style="font-size:15px;color:#444;background:#fff;padding:10px;border-radius:8px;margin-top:8px;line-height:1.5;">"你是中老年课程资深运营，用户是50-60岁已购八段锦人群，现在要推五禽戏体验课，请输出3-4段式弱营销文案，120字以内，带emoji，突出腰背痛点"</p>
-          <p style="font-size:14px;color:#E53935;margin-top:8px;">→ 精准、可直接用</p>
+        <div class="s5-compare-box">
+          <div class="s5-compare-label block-orange">✓ 好的提示词</div>
+          <div class="s5-compare-body">
+            <div class="prompt-text">"你是中老年课程资深运营，用户是50-60岁已购八段锦人群，现在要推五禽戏体验课，请输出3-4段式弱营销文案，120字以内..."</div>
+            <p class="result" style="color:#F77945;">→ 精准、可直接用</p>
+          </div>
         </div>
       </div>
-      <p class="center mt-2" style="font-size:16px;color:#666;">关键差异 = <strong>身份 + 画像 + 动作 + 要求 + 违禁词 + 框架</strong></p>
+      <div class="page-num">05 / 10</div>
     </div>
-    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
-    <div class="page-num">5 / 10</div>
   </div>
 
-  <!-- Slide 6: 系统模板6要素 -->
+  <!-- Slide 6: 6 Elements -->
   <div class="slide">
-    <div class="dots"><span></span><span></span></div>
-    <div class="content">
-      <h2>让AI记住你 —— 系统模板6要素</h2>
-      <div class="grid-2">
-        <div class="card" style="text-align:left;padding:24px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <div class="card-num" style="margin:0;">1</div>
-            <div class="card-title" style="margin:0;">【身份】你是谁</div>
-          </div>
-          <div class="card-desc">中老年课程资深运营</div>
+    <div class="slide-inner s6">
+      <div class="s6-header">
+        <div class="s2-accent"></div>
+        <h2>让AI记住你 —— 系统模板6要素</h2>
+      </div>
+      <div class="s6-grid">
+        <div class="s6-item">
+          <div class="s6-item-num">1</div>
+          <h3>【身份】你是谁</h3>
+          <p>中老年课程资深运营</p>
         </div>
-        <div class="card" style="text-align:left;padding:24px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <div class="card-num" style="margin:0;">2</div>
-            <div class="card-title" style="margin:0;">【用户画像】不变特征</div>
-          </div>
-          <div class="card-desc">年龄段、已购课程、核心需求</div>
+        <div class="s6-item">
+          <div class="s6-item-num">2</div>
+          <h3>【用户画像】不变特征</h3>
+          <p>年龄段、已购课程、核心需求</p>
         </div>
-        <div class="card" style="text-align:left;padding:24px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <div class="card-num" style="margin:0;">3</div>
-            <div class="card-title" style="margin:0;">【动作】让AI做什么</div>
-          </div>
-          <div class="card-desc">推广体验课、输出营销文案</div>
+        <div class="s6-item">
+          <div class="s6-item-num">3</div>
+          <h3>【动作】让AI做什么</h3>
+          <p>推广体验课、输出营销文案</p>
         </div>
-        <div class="card" style="text-align:left;padding:24px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <div class="card-num" style="margin:0;">4</div>
-            <div class="card-title" style="margin:0;">【输出要求】格式约束</div>
-          </div>
-          <div class="card-desc">段数、字数、类型、emoji位置</div>
+        <div class="s6-item">
+          <div class="s6-item-num">4</div>
+          <h3>【输出要求】格式约束</h3>
+          <p>段数、字数、类型、emoji位置</p>
         </div>
-        <div class="card" style="text-align:left;padding:24px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <div class="card-num" style="margin:0;">5</div>
-            <div class="card-title" style="margin:0;">【违禁词清单】不能出现的词</div>
-          </div>
-          <div class="card-desc">健康、养生、中医、方案...</div>
+        <div class="s6-item">
+          <div class="s6-item-num">5</div>
+          <h3>【违禁词清单】不能出现的词</h3>
+          <p>健康、养生、中医、方案...</p>
         </div>
-        <div class="card" style="text-align:left;padding:24px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <div class="card-num" style="margin:0;">6</div>
-            <div class="card-title" style="margin:0;">【参考框架/示例】文案结构</div>
-          </div>
-          <div class="card-desc">首段/第二段/末尾分别写什么</div>
+        <div class="s6-item">
+          <div class="s6-item-num">6</div>
+          <h3>【参考框架/示例】文案结构</h3>
+          <p>首段/第二段/末尾分别写什么</p>
         </div>
       </div>
-      <div class="highlight-box mt-2 center">
-        <p style="margin:0;font-size:18px;font-weight:600;color:#E53935;">把不变的信息存起来，每次只改变量</p>
+      <div class="s6-bottom">
+        <p>把不变的信息存起来，每次只改变量</p>
       </div>
+      <div class="page-num">06 / 10</div>
     </div>
-    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
-    <div class="page-num">6 / 10</div>
   </div>
 
-  <!-- Slide 7: 加载方式3选1 -->
+  <!-- Slide 7: Loading Methods -->
   <div class="slide">
-    <div class="dots"><span></span><span></span></div>
-    <div class="content">
-      <h2>3种方式，让模板随叫随到</h2>
-      <div class="grid-3">
-        <div class="card" style="border-color:#FF9E9E;background:rgba(255,158,158,0.06);">
-          <div class="card-title" style="color:#E53935;">方式A（推荐）</div>
-          <div class="card-title">DeepSeek「技能」</div>
-          <div class="card-desc" style="margin-top:8px;">把系统模板预设为技能<br>每次新建对话自动加载<br><strong>一劳永逸</strong></div>
+    <div class="slide-inner s7">
+      <div class="s7-header">
+        <div class="s2-accent"></div>
+        <h2>3种方式，让模板随叫随到</h2>
+      </div>
+      <div class="s7-cards">
+        <div class="s7-card rec">
+          <div class="s7-card-header">方式A（推荐）</div>
+          <div class="s7-card-body">
+            <h3>DeepSeek「技能」</h3>
+            <p>把系统模板预设为技能<br>每次新建对话自动加载<br><strong>一劳永逸</strong></p>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-title">方式B（备选）</div>
-          <div class="card-title">快捷短语 / 文本替换</div>
-          <div class="card-desc" style="margin-top:8px;">把模板存到手机/电脑<br>快捷输入，一键粘贴<br>适合快速调用</div>
+        <div class="s7-card">
+          <div class="s7-card-header">方式B（备选）</div>
+          <div class="s7-card-body">
+            <h3>快捷短语 / 文本替换</h3>
+            <p>把模板存到手机/电脑<br>快捷输入，一键粘贴<br>适合快速调用</p>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-title">方式C（保底）</div>
-          <div class="card-title">备忘录 / 飞书文档</div>
-          <div class="card-desc" style="margin-top:8px;">复制粘贴<br>零门槛，人人会用<br>最基础的方案</div>
+        <div class="s7-card">
+          <div class="s7-card-header">方式C（保底）</div>
+          <div class="s7-card-body">
+            <h3>备忘录 / 飞书文档</h3>
+            <p>复制粘贴<br>零门槛，人人会用<br>最基础的方案</p>
+          </div>
         </div>
       </div>
-      <div class="highlight-box mt-3">
-        <p style="margin:0;"><strong>推荐用方式A（DeepSeek技能）：</strong>设置一次，以后每次打开新对话自动带入身份、画像、违禁词，你只需要输入课程名和季节。</p>
+      <div class="s7-tip">
+        推荐用方式A（DeepSeek技能）：设置一次，以后每次打开新对话自动带入身份、画像、违禁词，你只需要输入课程名和季节。
       </div>
+      <div class="page-num">07 / 10</div>
     </div>
-    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
-    <div class="page-num">7 / 10</div>
   </div>
 
-  <!-- Slide 8: 4个常见问题 -->
+  <!-- Slide 8: 4 Solutions -->
   <div class="slide">
-    <div class="dots"><span></span><span></span></div>
-    <div class="content">
-      <h2>AI失忆？胡说？重复？4招解决</h2>
-      <table>
-        <tr>
-          <th style="width:15%;border-radius:8px 0 0 0;">问题</th>
-          <th style="width:35%;">真实场景</th>
-          <th style="width:50%;border-radius:0 8px 0 0;">解决方案</th>
-        </tr>
-        <tr>
-          <td><strong style="color:#E53935;">AI失忆</strong></td>
-          <td>写了10轮后，AI忘记不能出现"健康""养生"</td>
-          <td>每次新对话先加载模板；10轮后主动开新对话</td>
-        </tr>
-        <tr>
-          <td><strong style="color:#E53935;">AI胡说</strong></td>
-          <td>AI突然推荐了一个不存在的课程</td>
-          <td>"如果不确定，写'不确定'"；输出后自检违禁词</td>
-        </tr>
-        <tr>
-          <td><strong style="color:#E53935;">千篇一律</strong></td>
-          <td>连写5条文案，AI都是"腰酸背痛"开头</td>
-          <td>角度库法：悬疑类/互动类/大众兴趣类轮换</td>
-        </tr>
-        <tr>
-          <td><strong style="color:#E53935;">不会纠正</strong></td>
-          <td>AI理解偏差，运营不知道怎么说</td>
-          <td>"不对，我不是问A，而是问B""换一个方向"</td>
-        </tr>
-      </table>
+    <div class="slide-inner s8">
+      <div class="s8-header">
+        <div class="s2-accent"></div>
+        <h2>AI失忆？胡说？重复？4招解决</h2>
+      </div>
+      <div class="s8-table">
+        <div class="s8-table-row">
+          <div class="s8-col">问题</div>
+          <div class="s8-col">真实场景</div>
+          <div class="s8-col">解决方案</div>
+        </div>
+        <div class="s8-table-row">
+          <div class="s8-col">AI失忆</div>
+          <div class="s8-col">写了10轮后，AI忘记不能出现"健康""养生"</div>
+          <div class="s8-col">每次新对话先加载模板；10轮后主动开新对话</div>
+        </div>
+        <div class="s8-table-row">
+          <div class="s8-col">AI胡说</div>
+          <div class="s8-col">AI突然推荐了一个不存在的课程</div>
+          <div class="s8-col">"如果不确定，写'不确定'"；输出后自检违禁词</div>
+        </div>
+        <div class="s8-table-row">
+          <div class="s8-col">千篇一律</div>
+          <div class="s8-col">连写5条文案，AI都是"腰酸背痛"开头</div>
+          <div class="s8-col">角度库法：悬疑类/互动类/大众兴趣类轮换</div>
+        </div>
+        <div class="s8-table-row">
+          <div class="s8-col">不会纠正</div>
+          <div class="s8-col">AI理解偏差，运营不知道怎么说</div>
+          <div class="s8-col">"不对，我不是问A，而是问B""换一个方向"</div>
+        </div>
+      </div>
+      <div class="page-num">08 / 10</div>
     </div>
-    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
-    <div class="page-num">8 / 10</div>
   </div>
 
-  <!-- Slide 9: 实战演练 -->
+  <!-- Slide 9: Practice -->
   <div class="slide">
-    <div class="dots"><span></span><span></span></div>
-    <div class="content">
-      <h2>45分钟实战 —— 做出你的专属模板</h2>
-      <div class="step-flow">
-        <div class="step-item">
-          <div class="step-time">15分钟</div>
-          <div class="step-title">步骤1</div>
-          <div style="font-size:13px;margin-top:4px;opacity:0.9;">制作个人系统模板</div>
+    <div class="slide-inner s9">
+      <div class="s9-header">
+        <div class="s2-accent"></div>
+        <h2>45分钟实战 —— 做出你的专属模板</h2>
+      </div>
+      <div class="s9-flow">
+        <div class="s9-step">
+          <div class="s9-step-header">
+            <div class="time">15分钟</div>
+            <div class="title">步骤1：制作个人系统模板</div>
+          </div>
+          <div class="s9-step-body">
+            确定任务（文案/复盘/生图）→ 填写6要素 → 选择加载方式 → 用AI测试
+          </div>
         </div>
-        <div class="step-arrow">→</div>
-        <div class="step-item">
-          <div class="step-time">15分钟</div>
-          <div class="step-title">步骤2</div>
-          <div style="font-size:13px;margin-top:4px;opacity:0.9;">双轨实操二选一</div>
+        <div class="s9-step">
+          <div class="s9-step-header">
+            <div class="time">15分钟</div>
+            <div class="title">步骤2：双轨实操二选一</div>
+          </div>
+          <div class="s9-step-body">
+            轨道A：文案攥写 / 轨道B：数据复盘<br>用DeepSeek现场操作
+          </div>
         </div>
-        <div class="step-arrow">→</div>
-        <div class="step-item">
-          <div class="step-time">15分钟</div>
-          <div class="step-title">步骤3</div>
-          <div style="font-size:13px;margin-top:4px;opacity:0.9;">分享点评</div>
+        <div class="s9-step">
+          <div class="s9-step-header">
+            <div class="time">15分钟</div>
+            <div class="title">步骤3：分享点评</div>
+          </div>
+          <div class="s9-step-body">
+            抽3-4人展示个人模板和实操产出 → 现场点评
+          </div>
         </div>
       </div>
-      <div class="two-col mt-3">
-        <div class="col-box good">
-          <h4>轨道A：文案攥写</h4>
-          <p style="font-size:15px;">打开新对话 → 加载自己建的模板 → 输入变量 → AI输出 → 纠正优化</p>
-          <p style="font-size:14px;color:#E53935;margin-top:8px;">适合大多数运营</p>
+      <div class="s9-tracks">
+        <div class="s9-track s9-track-a">
+          <h4>轨道A：文案攥写（推荐大多数运营）</h4>
+          <p>打开新对话 → 加载自己建的模板 → 输入变量 → AI输出 → 纠正优化</p>
         </div>
-        <div class="col-box" style="border-color:#FF9E9E;">
-          <h4 style="color:#E53935;">轨道B：数据复盘</h4>
-          <p style="font-size:15px;">整理数据对比表 → 粘贴提示词框架 → 粘贴真实数据 → AI分析</p>
-          <p style="font-size:14px;color:#E53935;margin-top:8px;">适合数据/策略运营</p>
+        <div class="s9-track s9-track-b">
+          <h4>轨道B：数据复盘（适合数据/策略运营）</h4>
+          <p>整理数据对比表 → 粘贴提示词框架 → 粘贴真实数据 → AI分析</p>
         </div>
       </div>
-      <p class="center mt-2" style="font-size:16px;color:#666;">每人需提交：<strong>1份《个人系统模板》+ 1份实操产出</strong></p>
+      <div class="page-num">09 / 10</div>
     </div>
-    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
-    <div class="page-num">9 / 10</div>
   </div>
 
-  <!-- Slide 10: 总结 -->
+  <!-- Slide 10: Summary -->
   <div class="slide">
-    <div class="dots"><span></span><span></span></div>
-    <div class="content">
-      <h2>今天学了4件事，5月就这么做</h2>
-      <div class="grid-2">
-        <div class="card" style="text-align:left;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div class="card-num" style="margin:0;">1</div>
-            <div><div class="card-title" style="margin:0;">系统模板</div><div class="card-desc">解决AI失忆</div></div>
+    <div class="slide-inner s10">
+      <div class="s10-header">
+        <div class="s2-accent"></div>
+        <h2>今天学了4件事，5月就这么做</h2>
+      </div>
+      <div class="s10-grid">
+        <div class="s10-item">
+          <div class="s10-item-num">1</div>
+          <div>
+            <h3>系统模板</h3>
+            <p>解决AI失忆</p>
           </div>
         </div>
-        <div class="card" style="text-align:left;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div class="card-num" style="margin:0;">2</div>
-            <div><div class="card-title" style="margin:0;">输出约束</div><div class="card-desc">解决AI幻觉</div></div>
+        <div class="s10-item">
+          <div class="s10-item-num">2</div>
+          <div>
+            <h3>输出约束</h3>
+            <p>解决AI幻觉</p>
           </div>
         </div>
-        <div class="card" style="text-align:left;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div class="card-num" style="margin:0;">3</div>
-            <div><div class="card-title" style="margin:0;">纠正话术</div><div class="card-desc">解决AI跑偏</div></div>
+        <div class="s10-item">
+          <div class="s10-item-num">3</div>
+          <div>
+            <h3>纠正话术</h3>
+            <p>解决AI跑偏</p>
           </div>
         </div>
-        <div class="card" style="text-align:left;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div class="card-num" style="margin:0;">4</div>
-            <div><div class="card-title" style="margin:0;">数据复盘</div><div class="card-desc">形成习惯（每周五30分钟）</div></div>
+        <div class="s10-item">
+          <div class="s10-item-num">4</div>
+          <div>
+            <h3>数据复盘</h3>
+            <p>形成习惯（每周五30分钟）</p>
           </div>
         </div>
       </div>
-      <div class="highlight-box mt-3">
-        <p><strong>5月使用计划：</strong></p>
-        <p>每天：写文案前先加载系统模板 | 每周五：AI数据复盘 | 每周：迭代1次模板 | 月底：提交模板终版 + 复盘报告</p>
+      <div class="s10-plan">
+        <p><strong>5月使用计划：</strong>每天写文案前先加载系统模板　|　每周五AI数据复盘　|　每周迭代1次模板　|　月底提交模板终版 + 复盘报告</p>
       </div>
-      <p class="center mt-2" style="font-size:16px;color:#999;">工具推荐：DeepSeek「技能」 | Gemini（安全翻墙） | 豆包生图 | Claude Code</p>
-      <div class="highlight-box mt-2 center" style="border-color:#FF9E9E;">
-        <p style="margin:0;font-size:18px;color:#E53935;font-weight:600;">AI不是替代你思考，是把你从"重复交代背景"中解放出来</p>
+      <div class="s10-quote">
+        AI不是替代你思考，是把你从"重复交代背景"中解放出来
       </div>
+      <div class="page-num">10 / 10</div>
     </div>
-    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
-    <div class="page-num">10 / 10</div>
   </div>
 
 </div>
@@ -677,7 +1114,6 @@
       show(slides.length - 1);
     }
   });
-  // 点击 also 切换
   let touchStartX = 0;
   document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
   document.addEventListener('touchend', e => {
