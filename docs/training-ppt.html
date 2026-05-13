@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能实战培训 — 让AI帮你干活</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: #fff;
+    color: #333;
+  }
+  .slideshow {
+    width: 100vw; height: 100vh;
+    position: relative;
+  }
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 64px 80px 96px 80px;
+    background: #fff;
+  }
+  .slide.active { display: flex; }
+
+  /* 淡粉色光晕 */
+  .slide::before {
+    content: "";
+    position: absolute;
+    top: -10%; left: -10%;
+    width: 50%; height: 70%;
+    background: radial-gradient(circle, rgba(255,200,200,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* 底部渐变条 */
+  .slide::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 56px;
+    background: linear-gradient(90deg, #FF6B6B, #FF9E9E);
+  }
+
+  /* 品牌标识 */
+  .brand {
+    position: absolute;
+    bottom: 14px; left: 40px;
+    z-index: 10;
+    color: #fff;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand-logo {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  .brand-tag {
+    opacity: 0.9;
+    font-size: 13px;
+  }
+
+  /* 右上角红点 */
+  .dots {
+    position: absolute;
+    top: 40px; right: 48px;
+    display: flex;
+    gap: 6px;
+    z-index: 10;
+  }
+  .dots span {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #E53935;
+    display: inline-block;
+  }
+
+  /* 页面指示器 */
+  .page-num {
+    position: absolute;
+    bottom: 70px; right: 48px;
+    font-size: 13px;
+    color: #FF8A8A;
+    z-index: 10;
+  }
+
+  /* 内容区 */
+  .content {
+    width: 100%;
+    max-width: 1100px;
+    z-index: 5;
+  }
+
+  h1 {
+    font-size: 44px;
+    font-weight: 700;
+    color: #E53935;
+    margin-bottom: 32px;
+    line-height: 1.3;
+  }
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #E53935;
+    margin-bottom: 28px;
+    line-height: 1.3;
+  }
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 16px;
+    margin-top: 20px;
+  }
+  p, li {
+    font-size: 20px;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 12px;
+  }
+  ul { list-style: none; padding-left: 0; }
+  li {
+    position: relative;
+    padding-left: 28px;
+  }
+  li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 12px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
+  }
+
+  .subtitle {
+    font-size: 22px;
+    color: #666;
+    margin-top: -16px;
+    margin-bottom: 40px;
+  }
+  .tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 16px;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 20px;
+  }
+  .col-box {
+    border-radius: 16px;
+    padding: 24px;
+    border: 2px solid #f0f0f0;
+  }
+  .col-box.good {
+    border-color: #FF9E9E;
+    background: rgba(255,158,158,0.06);
+  }
+  .col-box.bad {
+    border-color: #ddd;
+    background: #fafafa;
+  }
+  .col-box h4 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .col-box.good h4 { color: #E53935; }
+  .col-box.bad h4 { color: #999; }
+
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(255,107,107,0.08), rgba(255,158,158,0.08));
+    border-left: 4px solid #FF6B6B;
+    padding: 20px 24px;
+    border-radius: 0 12px 12px 0;
+    margin: 16px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 17px;
+  }
+  th, td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  th {
+    background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
+    color: #fff;
+    font-weight: 600;
+  }
+  tr:hover { background: rgba(255,158,158,0.04); }
+
+  .big-formula {
+    font-size: 36px;
+    font-weight: 700;
+    color: #E53935;
+    text-align: center;
+    margin: 24px 0;
+    letter-spacing: 2px;
+  }
+
+  .step-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .step-item {
+    background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
+    color: #fff;
+    padding: 16px 20px;
+    border-radius: 12px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .step-item .step-time {
+    font-size: 13px;
+    opacity: 0.9;
+    margin-bottom: 4px;
+  }
+  .step-item .step-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .step-arrow {
+    font-size: 24px;
+    color: #FF9E9E;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .card {
+    border: 2px solid #f5f5f5;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+  .card-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin: 0 auto 12px;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .center { text-align: center; }
+  .mt-2 { margin-top: 16px; }
+  .mt-3 { margin-top: 24px; }
+
+  /* 导航 */
+  .nav-hint {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #ccc;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  @media (max-width: 900px) {
+    .slide { padding: 40px 30px 80px 30px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    p, li { font-size: 16px; }
+    .two-col, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .step-flow { flex-direction: column; }
+    .step-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+<div class="slideshow" id="slideshow">
+
+  <!-- Slide 1: 封面 -->
+  <div class="slide active">
+    <div class="dots"><span></span><span></span></div>
+    <div class="content center">
+      <div class="tag">私域运营团队 · 2026年5月</div>
+      <h1 style="font-size:52px;margin-bottom:20px;">AI赋能实战培训</h1>
+      <p class="subtitle" style="font-size:26px;color:#666;">让AI帮你干活</p>
+      <p style="margin-top:40px;color:#999;font-size:16px;">培训时长约2小时 | 现场实操 + 当场产出</p>
+    </div>
+    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
+    <div class="page-num">1 / 10</div>
+  </div>
+
+  <!-- Slide 2: 运营小李的故事 -->
+  <div class="slide">
+    <div class="dots"><span></span><span></span></div>
+    <div class="content">
+      <h2>为什么你觉得"AI不好用"？</h2>
+      <div class="highlight-box">
+        <p><strong>运营小李的一天：</strong></p>
+        <p>每天写10条文案，每次给AI贴800字背景 prompt（身份 + 画像 + 动作 + 违禁词 + 框架）</p>
+        <p>写了10轮后，AI"失忆"了，把<strong>瑜伽</strong>的卖点写成了<strong>太极</strong>的</p>
+        <p>小李觉得：<span style="color:#E53935;font-weight:600;">"AI还没我手写快"</span></p>
+      </div>
+      <div class="two-col mt-3">
+        <div class="col-box bad">
+          <h4><span style="font-size:20px;">❌</span> 问题不在AI</h4>
+          <p style="font-size:16px;">在"每次对话都要重新教AI你是谁"</p>
+        </div>
+        <div class="col-box good">
+          <h4><span style="font-size:20px;">✓</span> 今天要解决</h4>
+          <p style="font-size:16px;">① AI失忆 ② AI胡说 ③ AI重复</p>
+        </div>
+      </div>
+    </div>
+    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
+    <div class="page-num">2 / 10</div>
+  </div>
+
+  <!-- Slide 3: AI能做什么/不能做什么 -->
+  <div class="slide">
+    <div class="dots"><span></span><span></span></div>
+    <div class="content">
+      <h2>AI是"高效执行员"，不是"创意总监"</h2>
+      <div class="two-col">
+        <div class="col-box good">
+          <h4>✓ AI 能做</h4>
+          <ul>
+            <li>按你定义的框架输出文案</li>
+            <li>帮你检查违禁词</li>
+            <li>基于数据做分析和复盘</li>
+          </ul>
+        </div>
+        <div class="col-box bad">
+          <h4>❌ AI 不能做</h4>
+          <ul>
+            <li>替代你想出一个新的广告位联动主题</li>
+            <li>凭空创作打动用户的"感觉"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box mt-3 center">
+        <p style="font-size:22px;font-weight:600;color:#E53935;margin:0;">策略靠人，执行靠AI</p>
+      </div>
+    </div>
+    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
+    <div class="page-num">3 / 10</div>
+  </div>
+
+  <!-- Slide 4: 今天要解决的3个问题 -->
+  <div class="slide">
+    <div class="dots"><span></span><span></span></div>
+    <div class="content">
+      <h2>今天培训完，你能带走什么？</h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-num">1</div>
+          <div class="card-title">系统模板</div>
+          <div class="card-desc">让AI记住你的需求<br>不用每次都教</div>
+        </div>
+        <div class="card">
+          <div class="card-num">2</div>
+          <div class="card-title">输出约束</div>
+          <div class="card-desc">让AI不胡说<br>跑偏了能拉回来</div>
+        </div>
+        <div class="card">
+          <div class="card-num">3</div>
+          <div class="card-title">角度库</div>
+          <div class="card-desc">让AI产出不重复<br>千篇一律有解了</div>
+        </div>
+      </div>
+      <div class="highlight-box mt-3">
+        <p><strong>今天你能带走：</strong></p>
+        <p>✓ 一份「个人系统模板」（以后直接加载，不用重新交代背景）</p>
+        <p>✓ 解决AI失忆/幻觉/重复的4个方法</p>
+        <p>✓ 数据复盘意识（每周五固定做）</p>
+      </div>
+    </div>
+    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
+    <div class="page-num">4 / 10</div>
+  </div>
+
+  <!-- Slide 5: 核心公式 -->
+  <div class="slide">
+    <div class="dots"><span></span><span></span></div>
+    <div class="content">
+      <h2>一条好文案，从"会说话"开始</h2>
+      <div class="big-formula">你是谁 + 做什么 + 输入什么 + 输出格式</div>
+      <div class="two-col">
+        <div class="col-box bad">
+          <h4>❌ 坏的提示词</h4>
+          <p style="font-size:15px;color:#666;background:#fff;padding:10px;border-radius:8px;margin-top:8px;">"帮我写一条推销课程的文案"</p>
+          <p style="font-size:14px;color:#999;margin-top:8px;">→ 输出空泛、千篇一律</p>
+        </div>
+        <div class="col-box good">
+          <h4>✓ 好的提示词</h4>
+          <p style="font-size:15px;color:#444;background:#fff;padding:10px;border-radius:8px;margin-top:8px;line-height:1.5;">"你是中老年课程资深运营，用户是50-60岁已购八段锦人群，现在要推五禽戏体验课，请输出3-4段式弱营销文案，120字以内，带emoji，突出腰背痛点"</p>
+          <p style="font-size:14px;color:#E53935;margin-top:8px;">→ 精准、可直接用</p>
+        </div>
+      </div>
+      <p class="center mt-2" style="font-size:16px;color:#666;">关键差异 = <strong>身份 + 画像 + 动作 + 要求 + 违禁词 + 框架</strong></p>
+    </div>
+    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
+    <div class="page-num">5 / 10</div>
+  </div>
+
+  <!-- Slide 6: 系统模板6要素 -->
+  <div class="slide">
+    <div class="dots"><span></span><span></span></div>
+    <div class="content">
+      <h2>让AI记住你 —— 系统模板6要素</h2>
+      <div class="grid-2">
+        <div class="card" style="text-align:left;padding:24px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <div class="card-num" style="margin:0;">1</div>
+            <div class="card-title" style="margin:0;">【身份】你是谁</div>
+          </div>
+          <div class="card-desc">中老年课程资深运营</div>
+        </div>
+        <div class="card" style="text-align:left;padding:24px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <div class="card-num" style="margin:0;">2</div>
+            <div class="card-title" style="margin:0;">【用户画像】不变特征</div>
+          </div>
+          <div class="card-desc">年龄段、已购课程、核心需求</div>
+        </div>
+        <div class="card" style="text-align:left;padding:24px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <div class="card-num" style="margin:0;">3</div>
+            <div class="card-title" style="margin:0;">【动作】让AI做什么</div>
+          </div>
+          <div class="card-desc">推广体验课、输出营销文案</div>
+        </div>
+        <div class="card" style="text-align:left;padding:24px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <div class="card-num" style="margin:0;">4</div>
+            <div class="card-title" style="margin:0;">【输出要求】格式约束</div>
+          </div>
+          <div class="card-desc">段数、字数、类型、emoji位置</div>
+        </div>
+        <div class="card" style="text-align:left;padding:24px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <div class="card-num" style="margin:0;">5</div>
+            <div class="card-title" style="margin:0;">【违禁词清单】不能出现的词</div>
+          </div>
+          <div class="card-desc">健康、养生、中医、方案...</div>
+        </div>
+        <div class="card" style="text-align:left;padding:24px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <div class="card-num" style="margin:0;">6</div>
+            <div class="card-title" style="margin:0;">【参考框架/示例】文案结构</div>
+          </div>
+          <div class="card-desc">首段/第二段/末尾分别写什么</div>
+        </div>
+      </div>
+      <div class="highlight-box mt-2 center">
+        <p style="margin:0;font-size:18px;font-weight:600;color:#E53935;">把不变的信息存起来，每次只改变量</p>
+      </div>
+    </div>
+    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
+    <div class="page-num">6 / 10</div>
+  </div>
+
+  <!-- Slide 7: 加载方式3选1 -->
+  <div class="slide">
+    <div class="dots"><span></span><span></span></div>
+    <div class="content">
+      <h2>3种方式，让模板随叫随到</h2>
+      <div class="grid-3">
+        <div class="card" style="border-color:#FF9E9E;background:rgba(255,158,158,0.06);">
+          <div class="card-title" style="color:#E53935;">方式A（推荐）</div>
+          <div class="card-title">DeepSeek「技能」</div>
+          <div class="card-desc" style="margin-top:8px;">把系统模板预设为技能<br>每次新建对话自动加载<br><strong>一劳永逸</strong></div>
+        </div>
+        <div class="card">
+          <div class="card-title">方式B（备选）</div>
+          <div class="card-title">快捷短语 / 文本替换</div>
+          <div class="card-desc" style="margin-top:8px;">把模板存到手机/电脑<br>快捷输入，一键粘贴<br>适合快速调用</div>
+        </div>
+        <div class="card">
+          <div class="card-title">方式C（保底）</div>
+          <div class="card-title">备忘录 / 飞书文档</div>
+          <div class="card-desc" style="margin-top:8px;">复制粘贴<br>零门槛，人人会用<br>最基础的方案</div>
+        </div>
+      </div>
+      <div class="highlight-box mt-3">
+        <p style="margin:0;"><strong>推荐用方式A（DeepSeek技能）：</strong>设置一次，以后每次打开新对话自动带入身份、画像、违禁词，你只需要输入课程名和季节。</p>
+      </div>
+    </div>
+    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
+    <div class="page-num">7 / 10</div>
+  </div>
+
+  <!-- Slide 8: 4个常见问题 -->
+  <div class="slide">
+    <div class="dots"><span></span><span></span></div>
+    <div class="content">
+      <h2>AI失忆？胡说？重复？4招解决</h2>
+      <table>
+        <tr>
+          <th style="width:15%;border-radius:8px 0 0 0;">问题</th>
+          <th style="width:35%;">真实场景</th>
+          <th style="width:50%;border-radius:0 8px 0 0;">解决方案</th>
+        </tr>
+        <tr>
+          <td><strong style="color:#E53935;">AI失忆</strong></td>
+          <td>写了10轮后，AI忘记不能出现"健康""养生"</td>
+          <td>每次新对话先加载模板；10轮后主动开新对话</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#E53935;">AI胡说</strong></td>
+          <td>AI突然推荐了一个不存在的课程</td>
+          <td>"如果不确定，写'不确定'"；输出后自检违禁词</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#E53935;">千篇一律</strong></td>
+          <td>连写5条文案，AI都是"腰酸背痛"开头</td>
+          <td>角度库法：悬疑类/互动类/大众兴趣类轮换</td>
+        </tr>
+        <tr>
+          <td><strong style="color:#E53935;">不会纠正</strong></td>
+          <td>AI理解偏差，运营不知道怎么说</td>
+          <td>"不对，我不是问A，而是问B""换一个方向"</td>
+        </tr>
+      </table>
+    </div>
+    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
+    <div class="page-num">8 / 10</div>
+  </div>
+
+  <!-- Slide 9: 实战演练 -->
+  <div class="slide">
+    <div class="dots"><span></span><span></span></div>
+    <div class="content">
+      <h2>45分钟实战 —— 做出你的专属模板</h2>
+      <div class="step-flow">
+        <div class="step-item">
+          <div class="step-time">15分钟</div>
+          <div class="step-title">步骤1</div>
+          <div style="font-size:13px;margin-top:4px;opacity:0.9;">制作个人系统模板</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-item">
+          <div class="step-time">15分钟</div>
+          <div class="step-title">步骤2</div>
+          <div style="font-size:13px;margin-top:4px;opacity:0.9;">双轨实操二选一</div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-item">
+          <div class="step-time">15分钟</div>
+          <div class="step-title">步骤3</div>
+          <div style="font-size:13px;margin-top:4px;opacity:0.9;">分享点评</div>
+        </div>
+      </div>
+      <div class="two-col mt-3">
+        <div class="col-box good">
+          <h4>轨道A：文案攥写</h4>
+          <p style="font-size:15px;">打开新对话 → 加载自己建的模板 → 输入变量 → AI输出 → 纠正优化</p>
+          <p style="font-size:14px;color:#E53935;margin-top:8px;">适合大多数运营</p>
+        </div>
+        <div class="col-box" style="border-color:#FF9E9E;">
+          <h4 style="color:#E53935;">轨道B：数据复盘</h4>
+          <p style="font-size:15px;">整理数据对比表 → 粘贴提示词框架 → 粘贴真实数据 → AI分析</p>
+          <p style="font-size:14px;color:#E53935;margin-top:8px;">适合数据/策略运营</p>
+        </div>
+      </div>
+      <p class="center mt-2" style="font-size:16px;color:#666;">每人需提交：<strong>1份《个人系统模板》+ 1份实操产出</strong></p>
+    </div>
+    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
+    <div class="page-num">9 / 10</div>
+  </div>
+
+  <!-- Slide 10: 总结 -->
+  <div class="slide">
+    <div class="dots"><span></span><span></span></div>
+    <div class="content">
+      <h2>今天学了4件事，5月就这么做</h2>
+      <div class="grid-2">
+        <div class="card" style="text-align:left;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="card-num" style="margin:0;">1</div>
+            <div><div class="card-title" style="margin:0;">系统模板</div><div class="card-desc">解决AI失忆</div></div>
+          </div>
+        </div>
+        <div class="card" style="text-align:left;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="card-num" style="margin:0;">2</div>
+            <div><div class="card-title" style="margin:0;">输出约束</div><div class="card-desc">解决AI幻觉</div></div>
+          </div>
+        </div>
+        <div class="card" style="text-align:left;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="card-num" style="margin:0;">3</div>
+            <div><div class="card-title" style="margin:0;">纠正话术</div><div class="card-desc">解决AI跑偏</div></div>
+          </div>
+        </div>
+        <div class="card" style="text-align:left;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="card-num" style="margin:0;">4</div>
+            <div><div class="card-title" style="margin:0;">数据复盘</div><div class="card-desc">形成习惯（每周五30分钟）</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box mt-3">
+        <p><strong>5月使用计划：</strong></p>
+        <p>每天：写文案前先加载系统模板 | 每周五：AI数据复盘 | 每周：迭代1次模板 | 月底：提交模板终版 + 复盘报告</p>
+      </div>
+      <p class="center mt-2" style="font-size:16px;color:#999;">工具推荐：DeepSeek「技能」 | Gemini（安全翻墙） | 豆包生图 | Claude Code</p>
+      <div class="highlight-box mt-2 center" style="border-color:#FF9E9E;">
+        <p style="margin:0;font-size:18px;color:#E53935;font-weight:600;">AI不是替代你思考，是把你从"重复交代背景"中解放出来</p>
+      </div>
+    </div>
+    <div class="brand"><span class="brand-logo">兴趣岛</span><span class="brand-tag">| 名师更多 · 课程更全</span></div>
+    <div class="page-num">10 / 10</div>
+  </div>
+
+</div>
+
+<div class="nav-hint">← → 方向键切换幻灯片</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  function show(idx) {
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    current = idx;
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      if (current < slides.length - 1) show(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      if (current > 0) show(current - 1);
+    } else if (e.key === 'Home') {
+      show(0);
+    } else if (e.key === 'End') {
+      show(slides.length - 1);
+    }
+  });
+  // 点击 also 切换
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if (dx < -40 && current < slides.length - 1) show(current + 1);
+    if (dx > 40 && current > 0) show(current - 1);
+  });
+</script>
+</body>
+</html>
