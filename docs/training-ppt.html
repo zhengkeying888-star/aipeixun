@@ -79,7 +79,7 @@
         <p class="subtitle" style="font-size:26px;color:#8D6E63;">让AI帮你干活</p>
         <p style="margin-top:40px;color:#BCAAA4;font-size:15px;">培训时长约2小时 | PPT演示 + 现场答疑</p>
       </div>
-      <div class="page-num">01 / 18</div>
+      <div class="page-num">01 / 20</div>
     </div>
   </div>
 
@@ -127,7 +127,7 @@
       <div class="card" style="max-width:800px;text-align:center;margin-top:20px;">
         <p style="font-size:18px;color:#D32F2F;font-weight:600;">💡 核心结论：问题不在AI，在每次都要重新教AI你是谁</p>
       </div>
-      <div class="page-num">02 / 18</div>
+      <div class="page-num">02 / 20</div>
     </div>
   </div>
 
@@ -157,7 +157,7 @@
         <p style="font-size:18px;color:#D32F2F;font-weight:600;">💡 核心真相：出问题骂AI没用</p>
         <p style="font-size:16px;margin-top:8px;">任务定义没做好，再贵的模型也救不了。DeepSeek会失忆、Gemini也会胡说——<strong>幻觉是模型病，不是人用错了</strong>。</p>
       </div>
-      <div class="page-num">03 / 18</div>
+      <div class="page-num">03 / 20</div>
     </div>
   </div>
 
@@ -182,11 +182,44 @@
       <div class="card" style="max-width:800px;text-align:center;margin-top:24px;background:#FFEBEE;border-color:#FFCDD2;">
         <p style="font-size:20px;color:#D32F2F;font-weight:700;">策略靠人，执行靠AI</p>
       </div>
-      <div class="page-num">04 / 18</div>
+      <div class="page-num">04 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 5: Tool Truth -->
+  <!-- Slide 5: AI Basics -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>AI基础知识速览 —— 运营需要懂的3个底层概念</h2>
+      <p class="subtitle" style="margin-bottom:28px;">不是技术课，是帮你理解"AI为什么这样工作"</p>
+      <div class="flex-row" style="align-items:stretch;">
+        <div class="card col-3" style="text-align:center;">
+          <span class="icon-big">🧠</span>
+          <h3 style="font-size:18px;margin-bottom:8px;">LLM（大语言模型）</h3>
+          <p style="font-size:14px;">像读了全网书籍的"猜词机器"，根据前面的文字预测下一个最可能的词</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">它不是在"思考"，是在做"概率匹配" → 所以会幻觉、会失忆、会重复。你给的背景越精准，它"猜"得越对。</p>
+        </div>
+        <div class="card col-3" style="text-align:center;">
+          <span class="icon-big">🤖</span>
+          <h3 style="font-size:18px;margin-bottom:8px;">AGENT（智能体）</h3>
+          <p style="font-size:14px;">LLM + 手脚。不仅能说话，还能操作文件、写代码、执行流程</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">Cursor/Claude Code/Trae Solo都是AGENT。它们底层也是LLM，但多了"动手"能力。AGENT也会犯错，不是"更高级"，是"不同维度"。</p>
+        </div>
+        <div class="card col-3" style="text-align:center;">
+          <span class="icon-big">🎯</span>
+          <h3 style="font-size:18px;margin-bottom:8px;">为什么运营必须懂？</h3>
+          <p style="font-size:14px;">① 知道LLM会幻觉 → 必须人为验收</p>
+          <p style="font-size:14px;">② 知道它是概率匹配 → "精准背景+明确约束"比"换更贵模型"更重要</p>
+          <p style="font-size:14px;">③ 知道边界 → 策略框架靠人，执行细节靠AI</p>
+        </div>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;margin-top:24px;background:#FFEBEE;border-color:#FFCDD2;">
+        <p style="font-size:18px;color:#D32F2F;font-weight:600;">📌 LLM和AGENT的区别不是"升级"，是"会不会动手"。今天培训聚焦LLM协作。</p>
+      </div>
+      <div class="page-num">05 / 20</div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Tool Truth -->
   <div class="slide">
     <div class="slide-inner" style="padding:40px 80px;">
       <h2 style="font-size:36px;margin-bottom:8px;">工具真相 — LLM 和 AGENT 是两回事</h2>
@@ -203,18 +236,18 @@
             <p style="font-size:13px;color:#8D6E63;margin-bottom:12px;">你输入文字，它生成文字。像高级搜索引擎+写作助手。</p>
             <div style="margin-bottom:12px;">
               <span class="badge badge-green">DeepSeek</span>
-              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>不翻墙、中文好、免费<br><strong>缺点：</strong>长对话失忆、幻觉不可避免</p>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>不翻墙、中文好、免费<br><strong>缺点：</strong>长对话失忆、幻觉不可避免、<strong>无模板保存功能（系统模板需手动复制粘贴）</strong></p>
             </div>
             <div style="margin-bottom:12px;">
               <span class="badge badge-green">豆包</span>
-              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>国内可用、生图适合中老年审美<br><strong>缺点：</strong>文本推理弱、同样会幻觉</p>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>国内可用、生图适合中老年审美、<strong>可创建智能体保存提示词模板</strong><br><strong>缺点：</strong>文本推理弱、同样会幻觉</p>
             </div>
             <div style="margin-bottom:12px;">
               <span class="badge badge-orange">Gemini 3.1 Pro</span>
               <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>上下文大（100万token）、多模态<br><strong>缺点：</strong>需翻墙、复杂推理仍翻车、也会幻觉</p>
             </div>
             <div>
-              <span class="badge badge-red">GPT-5.5 / ChatGPT</span>
+              <span class="badge badge-red">GPT-4o / ChatGPT</span>
               <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>推理强、功能全、生态成熟<br><strong>缺点：</strong>付费、幻觉减少但未消除</p>
             </div>
           </div>
@@ -254,11 +287,11 @@
           <p style="font-size:13px;color:#8D6E63;margin-top:4px;">DeepSeek会、Gemini 3.1 Pro会、GPT-5.5也会。AGENT也会操作错文件。</p>
         </div>
       </div>
-      <div class="page-num">05 / 18</div>
+      <div class="page-num">06 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 6: Takeaways -->
+  <!-- Slide 7: Takeaways -->
   <div class="slide">
     <div class="slide-inner">
       <h2>今天培训完，你能带走什么？</h2>
@@ -285,11 +318,11 @@
       <div class="card" style="max-width:900px;text-align:center;margin-top:28px;background:#FFF8E1;border-color:#FFECB3;">
         <p style="font-size:18px;color:#5D4037;font-weight:600;">🎯 今日目标：每人产出一份「个人系统模板」+ 养成每周五数据复盘的习惯</p>
       </div>
-      <div class="page-num">06 / 18</div>
+      <div class="page-num">07 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 7: Workflow Overview -->
+  <!-- Slide 8: Workflow Overview -->
   <div class="slide">
     <div class="slide-inner">
       <h2>初阶协作工作流</h2>
@@ -322,11 +355,11 @@
       <div class="card" style="max-width:900px;text-align:center;margin-top:32px;">
         <p style="font-size:16px;color:#5D4037;"><strong>核心认知：</strong>3.0才是自动化。今天先跑通前4步，<strong>单任务跑通了，再谈工作流</strong>。</p>
       </div>
-      <div class="page-num">07 / 18</div>
+      <div class="page-num">08 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 8: Core Formula + A/B Test -->
+  <!-- Slide 9: Core Formula + A/B Test -->
   <div class="slide">
     <div class="slide-inner">
       <h2>一条好文案，从会说话开始</h2>
@@ -381,11 +414,11 @@
         <div class="tag-item">要求</div>
         <div class="tag-item">约束</div>
       </div>
-      <div class="page-num">08 / 18</div>
+      <div class="page-num">09 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 9: System Template 6 Elements -->
+  <!-- Slide 10: System Template 6 Elements -->
   <div class="slide">
     <div class="slide-inner">
       <h2>让AI记住你 —— 系统模板6要素</h2>
@@ -424,13 +457,65 @@
       </div>
       <div class="card" style="max-width:900px;text-align:center;margin-top:24px;background:#FFF8E1;border-color:#FFECB3;">
         <p style="font-size:18px;color:#5D4037;font-weight:700;">把不变的信息存起来，每次只改变量</p>
-        <p style="font-size:14px;color:#8D6E63;margin-top:6px;">错误的背景信息会让AI输出全盘错误。背景 = 角色 + 画像 + 参考框架，约束 = 违禁词 + 边界 + 标准。</p>
+        <p style="font-size:14px;color:#8D6E63;margin-top:6px;">DeepSeek无模板保存功能，系统模板需存到备忘录/飞书文档，每次新对话复制粘贴。豆包可创建智能体保存模板。</p>
       </div>
-      <div class="page-num">09 / 18</div>
+      <div class="page-num">09 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 10: Task Definition - Copywriting -->
+  <!-- Slide 11: Work Flow -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>现阶段你的工作流 —— 不用换工具，今天就能跑通</h2>
+      <p class="subtitle" style="margin-bottom:28px;">从"每次重新教AI"到"一次定义，反复使用"</p>
+      <div class="flex-row" style="align-items:stretch;">
+        <div class="card col-4" style="text-align:center;">
+          <span class="icon-big">📝</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">步骤1：准备系统模板</h3>
+          <p style="font-size:14px;">填写6要素</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">存到备忘录/飞书文档（或设成输入法快捷短语）</p>
+          <p style="font-size:12px;color:#D32F2F;margin-top:6px;">💡 豆包用户可创建智能体保存模板</p>
+        </div>
+        <div class="card col-4" style="text-align:center;">
+          <span class="icon-big">⚡</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">步骤2：只改变量</h3>
+          <p style="font-size:14px;">打开新对话</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">粘贴模板 → 输入本次变量（课程名/季节/数据）</p>
+          <p style="font-size:12px;color:#D32F2F;margin-top:6px;">关键：一对话一任务</p>
+        </div>
+        <div class="card col-4" style="text-align:center;">
+          <span class="icon-big">🔄</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">步骤3：跑通4步闭环</h3>
+          <p style="font-size:14px;">任务定义 → AI输出</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">→ 幻觉识别 → 辨证纠正 → 验收交付</p>
+        </div>
+        <div class="card col-4" style="text-align:center;">
+          <span class="icon-big">📈</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">步骤4：迭代模板</h3>
+          <p style="font-size:14px;">验收发现问题</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">反馈回模板：违禁词排序、补充角度库</p>
+          <p style="font-size:12px;color:#D32F2F;margin-top:6px;">模板是v1.0 → v1.1 → v1.2</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:16px;width:100%;max-width:1000px;margin-top:24px;">
+        <div style="flex:1;background:#F5F5F5;border-radius:16px;padding:16px;border:2px solid #E0E0E0;">
+          <div style="text-align:center;margin-bottom:10px;">
+            <span style="display:inline-block;background:#EF5350;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">❌ Before</span>
+          </div>
+          <p style="font-size:14px;text-align:center;color:#9E9E9E;">每次写文案重新交代背景 → AI跑偏 → 骂AI → 手写</p>
+        </div>
+        <div style="flex:1;background:#E8F5E9;border-radius:16px;padding:16px;border:2px solid #C8E6C9;">
+          <div style="text-align:center;margin-bottom:10px;">
+            <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">✅ After</span>
+          </div>
+          <p style="font-size:14px;text-align:center;color:#2E7D32;font-weight:600;">加载模板 → 输入变量 → 4步闭环 → 验收交付</p>
+        </div>
+      </div>
+      <div class="page-num">10 / 20</div>
+    </div>
+  </div>
+
+  <!-- Slide 12: Task Definition - Copywriting -->
   <div class="slide">
     <div class="slide-inner" style="padding:40px 80px;">
       <h2 style="font-size:36px;margin-bottom:8px;">Step1 任务定义 — 文案场景</h2>
@@ -468,7 +553,7 @@
           </div>
           <div style="margin-bottom:12px;">
             <div class="chat-label">🙋 运营（第4轮）</div>
-            <div class="chat-user">刚才4轮试下来，我总结一下我和AI协作写文案的SOP：①先交代身份+用户画像 ②再列违禁词（放最前面，不然你会忘）③给一条参考文案定风格 ④最后给本次变量。你确认下这个顺序对吗？有没有我漏掉的关键环节？</div>
+            <div class="chat-user">刚才4轮试下来，我总结一下我和AI协作写文案的SOP：①先交代身份+用户画像 ②再列违禁词（放最前面，不然你会忘）③给一条参考文案定风格 ④最后给本次变量。我把这套流程存到备忘录，下次直接复制粘贴这段开头。你确认下这个顺序对吗？</div>
           </div>
           <div>
             <div class="chat-label" style="text-align:right;">🤖 AI</div>
@@ -479,11 +564,11 @@
       <div class="card" style="max-width:900px;text-align:center;margin-top:12px;padding:12px 20px;">
         <p style="font-size:15px;color:#D32F2F;font-weight:600;">🎯 第4轮终点：不是产出一条文案，是磨出属于你自己的AI协作SOP</p>
       </div>
-      <div class="page-num">10 / 18</div>
+      <div class="page-num">12 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 11: Task Definition - Data Review -->
+  <!-- Slide 13: Task Definition - Data Review -->
   <div class="slide">
     <div class="slide-inner" style="padding:30px 60px;">
       <h2 style="font-size:32px;margin-bottom:4px;">Step1 任务定义 — 数据复盘场景</h2>
@@ -529,11 +614,11 @@
       <div class="card" style="max-width:900px;text-align:center;margin-top:8px;padding:8px 16px;">
         <p style="font-size:14px;color:#D32F2F;font-weight:600;">🎯 终点不是一份复盘报告，是磨出属于你的「数据复盘协作口令」</p>
       </div>
-      <div class="page-num">11 / 18</div>
+      <div class="page-num">13 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 12: Methodology Grinding Dialogue -->
+  <!-- Slide 14: Methodology Grinding Dialogue -->
   <div class="slide">
     <div class="slide-inner" style="padding:40px 80px;">
       <h2 style="font-size:36px;margin-bottom:8px;">Step1 延伸 — 方法论打磨对话</h2>
@@ -583,11 +668,11 @@
       <div class="card" style="max-width:900px;text-align:center;margin-top:10px;padding:10px 20px;">
         <p style="font-size:15px;color:#D32F2F;font-weight:600;">🎯 方法论不是背下来的：你可以主动交代背景，也可以让AI反问你。两种方式一起用，边界更清晰</p>
       </div>
-      <div class="page-num">12 / 18</div>
+      <div class="page-num">14 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 13: Hallucination Detection -->
+  <!-- Slide 15: Hallucination Detection -->
   <div class="slide">
     <div class="slide-inner">
       <h2>Step2 幻觉识别</h2>
@@ -615,11 +700,11 @@
       <div class="card" style="max-width:900px;text-align:center;margin-top:24px;">
         <p style="font-size:16px;color:#5D4037;"><strong>识别原则：</strong>所有AI都会幻觉，DeepSeek会、Gemini也会。关键不是"换更贵的模型"，是<strong>输出后先自检，发现问题再纠正</strong>。</p>
       </div>
-      <div class="page-num">13 / 18</div>
+      <div class="page-num">15 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 14: Dialectical Commentary -->
+  <!-- Slide 16: Dialectical Commentary -->
   <div class="slide">
     <div class="slide-inner">
       <h2>Step3 辨证评论</h2>
@@ -663,11 +748,11 @@
       <div class="card" style="max-width:900px;text-align:center;margin-top:12px;padding:12px 20px;">
         <p style="font-size:15px;color:#5D4037;font-weight:600;">💡 辨证话术模板："不对，我不是问A，而是问B" → "这个太泛，我需要XX颗粒度"</p>
       </div>
-      <div class="page-num">14 / 18</div>
+      <div class="page-num">16 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 15: Output Acceptance -->
+  <!-- Slide 17: Output Acceptance -->
   <div class="slide">
     <div class="slide-inner">
       <h2>Step4 输出验收</h2>
@@ -699,11 +784,11 @@
           </div>
         </div>
       </div>
-      <div class="page-num">15 / 18</div>
+      <div class="page-num">17 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 16: Next Steps -->
+  <!-- Slide 18: Next Steps -->
   <div class="slide">
     <div class="slide-inner">
       <h2>下一步：先把基础工具用透</h2>
@@ -733,11 +818,11 @@
       <div class="card" style="max-width:800px;text-align:center;margin-top:20px;background:#FFEBEE;border-color:#FFCDD2;">
         <p style="font-size:18px;color:#C62828;font-weight:600;">⚠️ 你的瓶颈不是工具不够好，是协作流程没跑通</p>
       </div>
-      <div class="page-num">16 / 18</div>
+      <div class="page-num">18 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 17: Live Practice -->
+  <!-- Slide 19: Live Practice -->
   <div class="slide">
     <div class="slide-inner" style="padding:40px 80px;">
       <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;">
@@ -808,11 +893,11 @@
       <div class="card" style="max-width:900px;text-align:center;padding:12px 20px;background:#FFF8E1;border-color:#FFECB3;">
         <p style="font-size:15px;color:#5D4037;font-weight:600;">💡 核心体验：不是「AI帮我写」，是「我和AI磨出了协作方式」——这个方式是你的，换个人用同样的工具，产出也不一样</p>
       </div>
-      <div class="page-num">17 / 18</div>
+      <div class="page-num">19 / 20</div>
     </div>
   </div>
 
-  <!-- Slide 18: Summary + Homework -->
+  <!-- Slide 20: Summary + Homework -->
   <div class="slide">
     <div class="slide-inner">
       <h2>带走什么 & 下一步</h2>
@@ -858,7 +943,7 @@
           </div>
         </div>
       </div>
-      <div class="page-num">18 / 18</div>
+      <div class="page-num">20 / 20</div>
     </div>
   </div>
 
