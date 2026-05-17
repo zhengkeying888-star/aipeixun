@@ -319,7 +319,7 @@
             <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">✅ 拆了：只让AI做它擅长的子步骤</span>
           </div>
           <div style="background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;">
-            <p style="font-size:13px;color:#5D4037;font-weight:600;">人做的：分析用户痛点 → 确定角度和卖点</p>
+            <p style="font-size:13px;color:#5D4037;font-weight:600;">人主导+LLM辅助：分析用户痛点 → 人+LLM共创角度和卖点</p>
             <p style="font-size:13px;color:#2E7D32;font-weight:600;margin-top:6px;">LLM做的：根据给定角度，撰写3-4段式文案正文</p>
             <p style="font-size:13px;color:#5D4037;font-weight:600;margin-top:6px;">人验收：检查违禁词、风格、可交付性</p>
           </div>
@@ -362,8 +362,12 @@
           </div>
         </div>
       </div>
-      <div style="width:100%;max-width:1100px;margin-bottom:12px;">
-        <p style="font-size:14px;color:#5D4037;font-weight:600;margin-bottom:8px;">📝 文案工作流任务分工图</p>
+      <div style="width:100%;max-width:1100px;margin-bottom:12px;text-align:center;">
+        <div style="display:inline-block;background:#FFEBEE;border:2px solid #EF9A9A;border-radius:12px;padding:10px 24px;margin-bottom:10px;">
+          <p style="font-size:14px;color:#C62828;font-weight:600;">📋 任务：写一条中老年课程营销文案</p>
+        </div>
+        <div style="font-size:18px;color:#8D6E63;margin-bottom:10px;">↓ 拆解为5步 ↓</div>
+        <p style="font-size:14px;color:#5D4037;font-weight:600;margin-bottom:8px;text-align:left;">📝 文案工作流任务分工图</p>
         <div style="display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap;">
           <div style="background:#FFF8E1;border:2px solid #FFECB3;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
             <p style="font-size:12px;color:#5D4037;font-weight:600;">① 分析需求</p>
@@ -405,38 +409,73 @@
     </div>
   </div>
 
-  <!-- Slide 9: Workflow Overview -->
+  <!-- Slide 9: Branch Model -->
   <div class="slide">
     <div class="slide-inner">
-      <h2>初阶协作工作流</h2>
-      <p class="subtitle" style="margin-bottom:36px;">4步流：不是换工具，是换协作方式</p>
-      <div class="flex-row" style="align-items:center;">
-        <div class="card col-4 card-pink" style="text-align:center;">
-          <span class="icon-big">🎯</span>
-          <h3 style="font-size:18px;">任务定义</h3>
-          <p style="font-size:14px;color:#8D6E63;">解决"我不知道要AI做什么"</p>
+      <h2>一次拆解，各自跑4步流</h2>
+      <p class="subtitle" style="margin-bottom:20px;">拆出来的每个子步骤，独立进入4步流执行</p>
+      <!-- Top: Task -->
+      <div style="text-align:center;margin-bottom:12px;">
+        <div style="display:inline-block;background:#FFEBEE;border:2px solid #EF9A9A;border-radius:12px;padding:10px 24px;">
+          <p style="font-size:14px;color:#C62828;font-weight:600;">📋 任务：写一条中老年课程营销文案</p>
         </div>
-        <div class="arrow-right">→</div>
-        <div class="card col-4 card-yellow" style="text-align:center;">
-          <span class="icon-big">🔍</span>
-          <h3 style="font-size:18px;">幻觉识别</h3>
-          <p style="font-size:14px;color:#8D6E63;">解决"AI有问题但我看不出来"</p>
+        <div style="font-size:18px;color:#8D6E63;margin:6px 0;">↓ 拆解为5步 ↓</div>
+      </div>
+      <!-- Middle: 5 steps -->
+      <div style="display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:4px;">
+        <div style="background:#FFF8E1;border:2px solid #FFECB3;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+          <p style="font-size:12px;color:#5D4037;font-weight:600;">① 分析需求</p>
+          <p style="font-size:11px;color:#8D6E63;">人主导</p>
         </div>
-        <div class="arrow-right">→</div>
-        <div class="card col-4 card-green" style="text-align:center;">
-          <span class="icon-big">💬</span>
-          <h3 style="font-size:18px;">辨证评论</h3>
-          <p style="font-size:14px;color:#8D6E63;">解决"看出来了但不知道怎么纠正"</p>
+        <div style="font-size:16px;color:#8D6E63;">→</div>
+        <div style="background:#C8E6C9;border:2px solid #81C784;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+          <p style="font-size:12px;color:#5D4037;font-weight:600;">② 确定角度</p>
+          <p style="font-size:11px;color:#2E7D32;font-weight:600;">人+LLM共创</p>
         </div>
-        <div class="arrow-right">→</div>
-        <div class="card col-4 card-orange" style="text-align:center;">
-          <span class="icon-big">✅</span>
-          <h3 style="font-size:18px;">输出验收</h3>
-          <p style="font-size:14px;color:#8D6E63;">解决"纠正后怎么确保能交付"</p>
+        <div style="font-size:16px;color:#8D6E63;">→</div>
+        <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+          <p style="font-size:12px;color:#5D4037;font-weight:600;">③ 撰写文案</p>
+          <p style="font-size:11px;color:#2E7D32;font-weight:600;">LLM执行</p>
+        </div>
+        <div style="font-size:16px;color:#8D6E63;">→</div>
+        <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+          <p style="font-size:12px;color:#5D4037;font-weight:600;">④ 检查违禁词</p>
+          <p style="font-size:11px;color:#2E7D32;font-weight:600;">LLM自检→人验收</p>
+        </div>
+        <div style="font-size:16px;color:#8D6E63;">→</div>
+        <div style="background:#FFF8E1;border:2px solid #FFECB3;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+          <p style="font-size:12px;color:#5D4037;font-weight:600;">⑤ 优化定稿</p>
+          <p style="font-size:11px;color:#8D6E63;">人修改</p>
         </div>
       </div>
-      <div class="card" style="max-width:900px;text-align:center;margin-top:32px;">
-        <p style="font-size:16px;color:#5D4037;"><strong>核心认知：</strong>任务拆解是思维层，4步流是执行层。先拆清楚，再按4步流逐个执行。<strong>单任务跑通了，再谈智能体工作流</strong>。</p>
+      <!-- Branch arrows and 4-step flows -->
+      <div style="display:flex;justify-content:center;gap:60px;margin-bottom:16px;">
+        <div style="text-align:center;">
+          <div style="font-size:20px;color:#8D6E63;">↙</div>
+          <div style="background:#C8E6C9;border:2px solid #81C784;border-radius:12px;padding:8px 14px;margin-top:4px;">
+            <p style="font-size:11px;color:#2E7D32;font-weight:600;">步骤② 跑4步流</p>
+            <p style="font-size:10px;color:#5D4037;">定义→识别→辨证→验收</p>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:20px;color:#8D6E63;">↓</div>
+          <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 14px;margin-top:4px;">
+            <p style="font-size:11px;color:#2E7D32;font-weight:600;">步骤③ 跑4步流</p>
+            <p style="font-size:10px;color:#5D4037;">定义→识别→辨证→验收</p>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:20px;color:#8D6E63;">↘</div>
+          <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 14px;margin-top:4px;">
+            <p style="font-size:11px;color:#2E7D32;font-weight:600;">步骤④ 跑4步流</p>
+            <p style="font-size:10px;color:#5D4037;">定义→识别→辨证→验收</p>
+          </div>
+        </div>
+      </div>
+      <!-- Bottom: key insight -->
+      <div class="card" style="max-width:900px;text-align:center;background:#FFEBEE;border-color:#FFCDD2;">
+        <p style="font-size:15px;color:#D32F2F;font-weight:600;">📌 关键认知：一个任务可能跑多轮4步流。每个子步骤独立对话，跑完即结束。</p>
+        <p style="font-size:13px;color:#8D6E63;margin-top:6px;">人做的步骤（①⑤）不需要跑4步流；LLM做的步骤（③④）和人+LLM共创步骤（②）各自独立跑4步流。</p>
       </div>
       <div class="page-num">09 / 22</div>
     </div>
