@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能实战培训</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif; background: #FFF5F0; }
+  .slideshow { width: 100vw; height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; }
+  .slide { position: absolute; inset: 0; display: none; padding: 0; background: #FFF5F0; }
+  .slide.active { display: block; }
+  .slide-inner { width: 100%; height: 100%; max-width: 1600px; max-height: 900px; margin: 0 auto; position: relative; background: #FFF5F0; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 80px; }
+  h1 { font-size: 56px; font-weight: 700; color: #D32F2F; line-height: 1.2; letter-spacing: 2px; text-align: center; }
+  h2 { font-size: 42px; font-weight: 700; color: #D32F2F; line-height: 1.3; letter-spacing: 1px; text-align: center; margin-bottom: 8px; }
+  h3 { font-size: 24px; font-weight: 600; color: #5D4037; line-height: 1.4; }
+  p, li { font-size: 17px; line-height: 1.7; color: #5D4037; }
+  .subtitle { font-size: 22px; color: #8D6E63; text-align: center; margin-top: 12px; }
+  .card { background: #fff; border-radius: 20px; padding: 28px 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 2px solid transparent; }
+  .card-pink { background: #FFEBEE; border-color: #FFCDD2; }
+  .card-green { background: #E8F5E9; border-color: #C8E6C9; }
+  .card-yellow { background: #FFF8E1; border-color: #FFECB3; }
+  .card-orange { background: #FFF3E0; border-color: #FFE0B2; }
+  .card-red { background: #FFEBEE; border-color: #EF9A9A; }
+  .icon-big { font-size: 48px; line-height: 1; margin-bottom: 12px; display: block; text-align: center; }
+  .icon-med { font-size: 32px; line-height: 1; margin-bottom: 8px; display: block; }
+  .flex-row { display: flex; gap: 24px; width: 100%; justify-content: center; align-items: stretch; }
+  .flex-col { display: flex; flex-direction: column; gap: 16px; }
+  .col-2 { flex: 1; max-width: 480px; }
+  .col-3 { flex: 1; max-width: 320px; }
+  .col-4 { flex: 1; max-width: 240px; }
+  .page-num { position: absolute; bottom: 28px; right: 40px; font-size: 14px; color: #BCAAA4; font-weight: 500; }
+  .tag { display: inline-block; background: #D32F2F; color: #fff; padding: 6px 18px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+  .arrow-right { font-size: 32px; color: #FF7043; align-self: center; font-weight: 700; }
+  .chat-user { background: #FFEBEE; border-radius: 16px 16px 4px 16px; padding: 12px 16px; margin-left: auto; max-width: 85%; border: 2px solid #FFCDD2; font-size: 14px; color: #5D4037; line-height: 1.5; }
+  .chat-ai { background: #fff; border-radius: 16px 16px 16px 4px; padding: 12px 16px; margin-right: auto; max-width: 85%; border: 2px solid #E0E0E0; font-size: 14px; color: #5D4037; line-height: 1.5; }
+  .chat-ai.bad { border-color: #EF9A9A; background: #FFEBEE; }
+  .chat-ai.good { border-color: #C8E6C9; background: #E8F5E9; }
+  .chat-ai.large { font-size: 16px; padding: 16px 20px; border-color: #D32F2F; border-width: 3px; }
+  .chat-label { font-size: 12px; color: #8D6E63; margin-bottom: 4px; font-weight: 600; }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { padding: 10px 0; border-bottom: 1px dashed #E0E0E0; font-size: 16px; }
+  .checklist li::before { content: "☐ "; color: #FF7043; font-size: 18px; margin-right: 8px; }
+  .checklist li:last-child { border-bottom: none; }
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; margin-right: 8px; }
+  .badge-red { background: #FFEBEE; color: #C62828; }
+  .badge-green { background: #E8F5E9; color: #2E7D32; }
+  .badge-orange { background: #FFF3E0; color: #EF6C00; }
+  .deco-circle { position: absolute; border-radius: 50%; opacity: 0.15; }
+  .id-card { background: #fff; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; border: 2px solid #E0E0E0; position: relative; }
+  .id-card::before { content: "📎"; font-size: 32px; position: absolute; top: -16px; left: 50%; transform: translateX(-50%); }
+  .id-avatar { font-size: 64px; margin-bottom: 12px; }
+  .file-card { background: #fff; border-radius: 4px 20px 20px 20px; padding: 28px 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; border: 2px solid #E0E0E0; position: relative; }
+  .file-card::before { content: attr(data-num); position: absolute; top: -12px; left: 16px; background: #D32F2F; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+  .formula-box { background: #fff; border-radius: 12px; padding: 12px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 2px solid #FFCDD2; font-size: 18px; font-weight: 700; color: #D32F2F; text-align: center; }
+  .grid-3x2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1000px; }
+  .big-card { border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .big-card-green { background: #E8F5E9; border: 2px solid #C8E6C9; }
+  .big-card-orange { background: #FFF3E0; border: 2px solid #FFE0B2; }
+  .sub-card { background: #fff; border-radius: 16px; padding: 16px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 12px; font-size: 15px; font-weight: 600; color: #5D4037; }
+  .sub-card:last-child { margin-bottom: 0; }
+  .tag-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .tag-item { background: #fff; border-radius: 20px; padding: 8px 20px; border: 2px solid #FFCDD2; font-size: 14px; font-weight: 600; color: #5D4037; }
+</style>
+</head>
+<body>
+<div class="slideshow" id="slideshow">
+
+  <!-- Slide 1: Cover -->
+  <div class="slide active">
+    <div class="slide-inner" style="position:relative;">
+      <div class="deco-circle" style="width:300px;height:300px;background:#FFCDD2;top:-60px;right:-60px;"></div>
+      <div class="deco-circle" style="width:200px;height:200px;background:#FFECB3;bottom:80px;left:-40px;"></div>
+      <div class="deco-circle" style="width:120px;height:120px;background:#C8E6C9;top:120px;right:200px;"></div>
+      <div style="text-align:center;z-index:2;">
+        <div class="tag" style="margin-bottom:24px;">私域运营团队 · 2026年5月</div>
+        <div class="icon-big" style="font-size:64px;">🚀</div>
+        <h1 style="margin-bottom:16px;">AI赋能实战培训</h1>
+        <p class="subtitle" style="font-size:26px;color:#8D6E63;">让AI帮你干活</p>
+        <p style="margin-top:40px;color:#BCAAA4;font-size:15px;">培训时长约2小时 | PPT演示 + 现场答疑</p>
+      </div>
+      <div class="page-num">01 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 2: Opening Story -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>开场 — 运营小李的故事</h2>
+      <p class="subtitle" style="margin-bottom:28px;">为什么你觉得"AI不好用"？</p>
+      <div class="flex-row" style="align-items:center;">
+        <div class="id-card" style="max-width:320px;">
+          <div class="id-avatar">👤</div>
+          <h3 style="margin-bottom:16px;">运营小李</h3>
+          <div style="text-align:left;">
+            <p style="font-size:15px;margin-bottom:10px;">• 每天写10条文案</p>
+            <p style="font-size:15px;margin-bottom:10px;">• 每次给AI贴800字背景</p>
+            <p style="font-size:15px;">• 感觉：AI还没我手写快</p>
+          </div>
+        </div>
+        <div style="flex:1;max-width:500px;">
+          <div style="margin-bottom:10px;">
+            <div class="chat-label">🙋 小李</div>
+            <div class="chat-user">帮我写条推广瑜伽课程的文案</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div class="chat-label" style="text-align:right;">🤖 AI</div>
+            <div class="chat-ai">瑜伽...？</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div class="chat-label" style="text-align:right;">🤖 AI</div>
+            <div class="chat-ai">嗯...课程...</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div class="chat-label" style="text-align:right;">🤖 AI</div>
+            <div class="chat-ai">推广什么...？</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div class="chat-label" style="text-align:right;">🤖 AI</div>
+            <div class="chat-ai large">为您推荐太极课程...</div>
+          </div>
+          <div style="text-align:right;">
+            <span style="display:inline-block;background:#D32F2F;color:#fff;padding:6px 16px;border-radius:8px;font-size:14px;font-weight:600;">❌ AI失忆了</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="max-width:800px;text-align:center;margin-top:20px;">
+        <p style="font-size:18px;color:#D32F2F;font-weight:600;">💡 核心结论：问题不在AI，在每次都要重新教AI你是谁</p>
+      </div>
+      <div class="page-num">02 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 3: AI Pain Points Visual -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>AI的三大现状痛点</h2>
+      <p class="subtitle" style="margin-bottom:28px;">不是"AI不好用"，是协作方式没跑通</p>
+      <div class="flex-row" style="margin-bottom:20px;">
+        <div class="card col-3 card-pink">
+          <span class="icon-big">😵</span>
+          <h3 style="text-align:center;margin-bottom:8px;">AI失忆</h3>
+          <p style="text-align:center;font-size:15px;">长对话后忘记约束条件<br>上下文有天花板</p>
+        </div>
+        <div class="card col-3 card-yellow">
+          <span class="icon-big">🤥</span>
+          <h3 style="text-align:center;margin-bottom:8px;">AI胡说</h3>
+          <p style="text-align:center;font-size:15px;">推荐不存在的课程<br>编造数据，幻觉不可避免</p>
+        </div>
+        <div class="card col-3 card-orange">
+          <span class="icon-big">🔁</span>
+          <h3 style="text-align:center;margin-bottom:8px;">AI重复</h3>
+          <p style="text-align:center;font-size:15px;">输出同质化<br>角度单一，千篇一律</p>
+        </div>
+      </div>
+      <div class="card" style="max-width:800px;text-align:center;">
+        <p style="font-size:18px;color:#D32F2F;font-weight:600;">💡 核心真相：出问题骂AI没用</p>
+        <p style="font-size:16px;margin-top:8px;">任务定义没做好，再贵的模型也救不了。DeepSeek会失忆、Gemini也会胡说——<strong>幻觉是模型病，不是人用错了</strong>。</p>
+      </div>
+      <div class="page-num">03 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 4: AI Can/Cannot -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>AI是高效执行员，不是创意总监</h2>
+      <p class="subtitle" style="margin-bottom:28px;">策略靠人，执行靠AI</p>
+      <div class="flex-row" style="align-items:stretch;">
+        <div class="big-card big-card-green" style="flex:1;max-width:520px;">
+          <h3 style="text-align:center;color:#2E7D32;margin-bottom:20px;">🟢 高效执行员</h3>
+          <div class="sub-card">1. 按你定义的框架输出文案</div>
+          <div class="sub-card">2. 帮你检查违禁词</div>
+          <div class="sub-card">3. 基于数据做分析和复盘</div>
+        </div>
+        <div class="big-card big-card-orange" style="flex:1;max-width:520px;">
+          <h3 style="text-align:center;color:#EF6C00;margin-bottom:20px;">🟠 非创意总监</h3>
+          <div class="sub-card">1. 替代你想出一个新的广告位联动主题</div>
+          <div class="sub-card">2. 凭空创作打动用户的"感觉"</div>
+        </div>
+      </div>
+      <div class="card" style="max-width:800px;text-align:center;margin-top:24px;background:#FFEBEE;border-color:#FFCDD2;">
+        <p style="font-size:20px;color:#D32F2F;font-weight:700;">策略靠人，执行靠AI</p>
+      </div>
+      <div class="page-num">04 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 5: AI Basics -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>AI基础知识速览 —— 运营需要懂的3个底层概念</h2>
+      <p class="subtitle" style="margin-bottom:28px;">不是技术课，是帮你理解"AI为什么这样工作"</p>
+      <div class="flex-row" style="align-items:stretch;">
+        <div class="card col-3" style="text-align:center;">
+          <span class="icon-big">🧠</span>
+          <h3 style="font-size:18px;margin-bottom:8px;">LLM（大语言模型）</h3>
+          <p style="font-size:14px;">像读了全网书籍的"猜词机器"，根据前面的文字预测下一个最可能的词</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">它不是在"思考"，是在做"概率匹配" → 所以会幻觉、会失忆、会重复。你给的背景越精准，它"猜"得越对。</p>
+        </div>
+        <div class="card col-3" style="text-align:center;">
+          <span class="icon-big">🤖</span>
+          <h3 style="font-size:18px;margin-bottom:8px;">AGENT（智能体）</h3>
+          <p style="font-size:14px;">LLM + 手脚。不仅能说话，还能操作文件、写代码、执行流程</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">Cursor/Claude Code/Trae Solo都是AGENT。它们底层也是LLM，但多了"动手"能力。AGENT也会犯错，不是"更高级"，是"不同维度"。</p>
+        </div>
+        <div class="card col-3" style="text-align:center;">
+          <span class="icon-big">🎯</span>
+          <h3 style="font-size:18px;margin-bottom:8px;">为什么运营必须懂？</h3>
+          <p style="font-size:14px;">① 知道LLM会幻觉 → 必须人为验收</p>
+          <p style="font-size:14px;">② 知道它是概率匹配 → "精准背景+明确约束"比"换更贵模型"更重要</p>
+          <p style="font-size:14px;">③ 知道边界 → 策略框架靠人，执行细节靠AI</p>
+        </div>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;margin-top:24px;background:#FFEBEE;border-color:#FFCDD2;">
+        <p style="font-size:18px;color:#D32F2F;font-weight:600;">📌 LLM和AGENT的区别不是"升级"，是"会不会动手"。今天培训聚焦LLM协作。</p>
+      </div>
+      <div class="page-num">05 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Tool Truth -->
+  <div class="slide">
+    <div class="slide-inner" style="padding:40px 80px;">
+      <h2 style="font-size:36px;margin-bottom:8px;">工具真相 — LLM 和 AGENT 是两回事</h2>
+      <p class="subtitle" style="margin-bottom:20px;">先分清维度，再选工具；所有模型都会幻觉</p>
+
+      <div style="display:flex;gap:16px;width:100%;max-width:1200px;margin-bottom:16px;">
+        <!-- LLM -->
+        <div style="flex:1;">
+          <div class="card card-green" style="height:100%;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+              <span class="icon-med">💬</span>
+              <h3 style="color:#2E7D32;">LLM（大语言模型）— 对话生成</h3>
+            </div>
+            <p style="font-size:13px;color:#8D6E63;margin-bottom:12px;">你输入文字，它生成文字。像高级搜索引擎+写作助手。</p>
+            <div style="margin-bottom:12px;">
+              <span class="badge badge-green">DeepSeek</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>不翻墙、中文好、免费<br><strong>缺点：</strong>长对话失忆、幻觉不可避免、<strong>无模板保存功能（系统模板需手动复制粘贴）</strong></p>
+            </div>
+            <div style="margin-bottom:12px;">
+              <span class="badge badge-green">豆包</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>国内可用、生图适合中老年审美、<strong>可创建智能体保存提示词模板</strong><br><strong>缺点：</strong>文本推理弱、同样会幻觉</p>
+            </div>
+            <div style="margin-bottom:12px;">
+              <span class="badge badge-orange">Gemini 3.1 Pro</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>上下文大（100万token）、多模态<br><strong>缺点：</strong>需翻墙、复杂推理仍翻车、也会幻觉</p>
+            </div>
+            <div>
+              <span class="badge badge-red">GPT-4o / ChatGPT</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>推理强、功能全、生态成熟<br><strong>缺点：</strong>付费、幻觉减少但未消除</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- AGENT -->
+        <div style="flex:1;">
+          <div class="card card-pink" style="height:100%;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+              <span class="icon-med">🤖</span>
+              <h3 style="color:#C62828;">AGENT（智能体）— 自动化执行</h3>
+            </div>
+            <p style="font-size:13px;color:#8D6E63;margin-bottom:12px;">你描述目标，它自动操作文件/写代码/执行流程。像实习生。</p>
+            <div style="margin-bottom:12px;">
+              <span class="badge badge-red">Cursor</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>直接改代码、操作文件、$20/月<br><strong>缺点：</strong>需配置环境、学习成本高</p>
+            </div>
+            <div style="margin-bottom:12px;">
+              <span class="badge badge-red">Claude Code</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>命令行AI、批量处理、自动化强<br><strong>缺点：</strong>需VS Code环境、英文为主</p>
+            </div>
+            <div>
+              <span class="badge badge-green">Trae Solo（推荐）</span>
+              <p style="font-size:13px;margin-top:4px;"><strong>优点：</strong>字节跳动出品、免费、内置模型、国内直连不用翻墙、有每日额度次日重置<br><strong>缺点：</strong>大项目代码质量略弱、可能过度自动化</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;width:100%;max-width:1200px;">
+        <div class="card" style="flex:1;text-align:center;padding:12px 16px;">
+          <p style="font-size:14px;color:#5D4037;font-weight:600;">📌 关键认知 1：LLM 和 AGENT 不是升级关系，是不同维度</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:4px;">LLM 是"大脑"，AGENT 是"大脑+手脚"。AGENT 底层也是 LLM，但它会自己操作电脑。</p>
+        </div>
+        <div class="card" style="flex:1;text-align:center;padding:12px 16px;background:#FFEBEE;border-color:#FFCDD2;">
+          <p style="font-size:14px;color:#D32F2F;font-weight:600;">⚠️ 关键认知 2：没有AI不会幻觉，只有协作流程能降低损失</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:4px;">DeepSeek会、Gemini 3.1 Pro会、GPT-4o也会。AGENT也会操作错文件。</p>
+        </div>
+      </div>
+      <div class="page-num">06 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Why Decomposition -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div style="text-align:center;margin-bottom:8px;">
+        <span class="tag" style="font-size:13px;">选定了工具，下一步不是马上写提示词</span>
+      </div>
+      <h2 style="margin-bottom:8px;">先想清楚：这个任务怎么跟AI配合？</h2>
+      <p class="subtitle" style="margin-bottom:24px;">不拆 vs 拆——同样是写一条文案，结果天差地别</p>
+      <div style="display:flex;gap:20px;width:100%;max-width:1200px;">
+        <div style="flex:1;background:#F5F5F5;border-radius:16px;padding:20px;border:2px solid #E0E0E0;">
+          <div style="text-align:center;margin-bottom:12px;">
+            <span style="display:inline-block;background:#EF5350;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">❌ 不拆：直接扔给AI一个大任务</span>
+          </div>
+          <div class="chat-user" style="font-size:13px;padding:10px 14px;margin-bottom:10px;">
+            帮我写一条中老年课程营销文案，推广五禽戏体验课
+          </div>
+          <div class="chat-ai bad" style="font-size:13px;padding:10px 14px;margin-bottom:10px;">
+            亲爱的用户，我们的五禽戏课程非常专业，老师经验丰富，快来报名吧！
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:12px;">
+            <p style="font-size:13px;color:#9E9E9E;">❌ 角度由AI自由发挥 → 千篇一律<br>❌ 卖点AI自己编 → 可能夸大<br>❌ 违禁词没人把关 → 风险高</br>❌ 改10轮还是不满意 → 效率低</p>
+          </div>
+        </div>
+        <div style="flex:1;background:#E8F5E9;border-radius:16px;padding:20px;border:2px solid #C8E6C9;">
+          <div style="text-align:center;margin-bottom:12px;">
+            <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">✅ 拆了：只让AI做它擅长的子步骤</span>
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;">
+            <p style="font-size:13px;color:#5D4037;font-weight:600;">人主导+LLM辅助：分析用户痛点 → 人+LLM共创角度和卖点</p>
+            <p style="font-size:13px;color:#2E7D32;font-weight:600;margin-top:6px;">LLM做的：根据给定角度，撰写3-4段式文案正文</p>
+            <p style="font-size:13px;color:#5D4037;font-weight:600;margin-top:6px;">人验收：检查违禁词、风格、可交付性</p>
+          </div>
+          <div class="chat-ai good" style="font-size:13px;padding:10px 14px;">
+            😣 冬天洗碗站一会儿腰就酸...<br>👍 我最近跟着传承人练了套"五禽戏调理法"...<br>💪 这次老师把五禽戏里"熊运""鸟伸"几个动作单独拎出来...<br>👉 老学员专属，仅50个免费学名额...
+          </div>
+        </div>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;margin-top:20px;background:#FFEBEE;border-color:#FFCDD2;">
+        <p style="font-size:16px;color:#C62828;font-weight:600;">📌 核心认知：不是AI不好用，是你给AI的任务太大了。拆清楚，再分工，AI才能精准执行。</p>
+      </div>
+      <div class="page-num">07 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 8: Task Decomposition -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>拿到任务先拆解——从步骤分解到任务分工</h2>
+      <p class="subtitle" style="margin-bottom:12px;">拆解是思维层动词，分工是拆解的目的。先拆清楚步骤，再判断谁做什么。</p>
+      <div style="display:flex;gap:16px;width:100%;max-width:1100px;margin-bottom:14px;">
+        <div style="flex:1;background:#F5F5F5;border-radius:16px;padding:14px;border:2px solid #E0E0E0;">
+          <div style="text-align:center;margin-bottom:8px;">
+            <span style="display:inline-block;background:#8D6E63;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">第一步：基础拆解</span>
+          </div>
+          <p style="font-size:14px;text-align:center;color:#5D4037;margin-bottom:8px;">先不考虑AI，按传统方式拆步骤</p>
+          <div style="background:#fff;border-radius:12px;padding:10px;">
+            <p style="font-size:13px;color:#5D4037;font-weight:600;">写一条文案：</p>
+            <p style="font-size:13px;color:#8D6E63;">① 分析用户需求 → ② 确定角度 → ③ 撰写文案 → ④ 检查违禁词 → ⑤ 优化定稿</p>
+          </div>
+        </div>
+        <div style="flex:1;background:#E8F5E9;border-radius:16px;padding:14px;border:2px solid #C8E6C9;">
+          <div style="text-align:center;margin-bottom:8px;">
+            <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">第二步：进阶拆解→任务分工</span>
+          </div>
+          <p style="font-size:14px;text-align:center;color:#5D4037;margin-bottom:8px;">判断每步谁做：人 or LLM</p>
+          <div style="background:#fff;border-radius:12px;padding:10px;">
+            <p style="font-size:13px;color:#5D4037;font-weight:600;">任务分工：</p>
+            <p style="font-size:13px;color:#8D6E63;">① 人主导+LLM辅助分析 → ② 人+LLM共创角度 → ③ LLM撰写 → ④ LLM自检→人验收 → ⑤ 人优化</p>
+          </div>
+        </div>
+      </div>
+      <div style="width:100%;max-width:1100px;margin-bottom:12px;text-align:center;">
+        <div style="display:inline-block;background:#FFEBEE;border:2px solid #EF9A9A;border-radius:12px;padding:10px 24px;margin-bottom:10px;">
+          <p style="font-size:14px;color:#C62828;font-weight:600;">📋 任务：写一条中老年课程营销文案</p>
+        </div>
+        <div style="font-size:18px;color:#8D6E63;margin-bottom:10px;">↓ 拆解为5步 ↓</div>
+        <p style="font-size:14px;color:#5D4037;font-weight:600;margin-bottom:8px;text-align:left;">📝 文案工作流任务分工图</p>
+        <div style="display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap;">
+          <div style="background:#C8E6C9;border:2px solid #81C784;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+            <p style="font-size:12px;color:#5D4037;font-weight:600;">① 分析需求</p>
+            <p style="font-size:11px;color:#2E7D32;font-weight:600;">人主导+LLM辅助</p>
+          </div>
+          <div style="font-size:16px;color:#8D6E63;">→</div>
+          <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+            <p style="font-size:12px;color:#5D4037;font-weight:600;">② 确定角度</p>
+            <p style="font-size:11px;color:#2E7D32;font-weight:600;">人+LLM共创</p>
+          </div>
+          <div style="font-size:16px;color:#8D6E63;">→</div>
+          <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+            <p style="font-size:12px;color:#5D4037;font-weight:600;">③ 撰写文案</p>
+            <p style="font-size:11px;color:#2E7D32;font-weight:600;">LLM执行</p>
+          </div>
+          <div style="font-size:16px;color:#8D6E63;">→</div>
+          <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+            <p style="font-size:12px;color:#5D4037;font-weight:600;">④ 检查违禁词</p>
+            <p style="font-size:11px;color:#2E7D32;font-weight:600;">LLM自检→人验收</p>
+          </div>
+          <div style="font-size:16px;color:#8D6E63;">→</div>
+          <div style="background:#FFF8E1;border:2px solid #FFECB3;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+            <p style="font-size:12px;color:#5D4037;font-weight:600;">⑤ 优化定稿</p>
+            <p style="font-size:11px;color:#8D6E63;">人修改</p>
+          </div>
+        </div>
+      </div>
+      <div class="card card-yellow" style="max-width:1000px;margin-bottom:10px;padding:10px 14px;">
+        <p style="font-size:14px;color:#5D4037;font-weight:600;">📊 数据复盘任务分工：人整理数据 → LLM找异常+分析原因 → 人决策 → LLM给1个落地动作</p>
+      </div>
+      <div class="card card-red" style="max-width:900px;text-align:center;margin-bottom:10px;padding:10px 14px;">
+        <p style="font-size:14px;color:#C62828;font-weight:600;">🛡️ 任务分工自检：这个步骤如果交给一个不懂业务的实习生，我放心吗？</p>
+        <p style="font-size:13px;color:#8D6E63;">放心 → 可以给LLM ｜ 不放心 → 必须人做，最多让LLM辅助</p>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;background:#FFEBEE;border-color:#FFCDD2;">
+        <p style="font-size:15px;color:#D32F2F;font-weight:600;">📌 拆解是思维层，分工是拆解的目的。每个交给LLM的步骤，各自跑4步流。</p>
+      </div>
+      <div class="page-num">08 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Branch Model -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>一次拆解，各自跑4步流</h2>
+      <p class="subtitle" style="margin-bottom:20px;">拆解阶段一次性定义分工 → 执行阶段反复跑识别→辨证→验收</p>
+      <!-- Top: Task -->
+      <div style="text-align:center;margin-bottom:12px;">
+        <div style="display:inline-block;background:#FFEBEE;border:2px solid #EF9A9A;border-radius:12px;padding:10px 24px;">
+          <p style="font-size:14px;color:#C62828;font-weight:600;">📋 任务：写一条中老年课程营销文案</p>
+        </div>
+        <div style="font-size:18px;color:#8D6E63;margin:6px 0;">↓ 拆解为5步 ↓</div>
+      </div>
+      <!-- Middle: 5 steps -->
+      <div style="display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:4px;">
+        <div style="background:#C8E6C9;border:2px solid #81C784;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+          <p style="font-size:12px;color:#5D4037;font-weight:600;">① 分析需求</p>
+          <p style="font-size:11px;color:#2E7D32;font-weight:600;">人主导+LLM辅助</p>
+        </div>
+        <div style="font-size:16px;color:#8D6E63;">→</div>
+        <div style="background:#C8E6C9;border:2px solid #81C784;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+          <p style="font-size:12px;color:#5D4037;font-weight:600;">② 确定角度</p>
+          <p style="font-size:11px;color:#2E7D32;font-weight:600;">人+LLM共创</p>
+        </div>
+        <div style="font-size:16px;color:#8D6E63;">→</div>
+        <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+          <p style="font-size:12px;color:#5D4037;font-weight:600;">③ 撰写文案</p>
+          <p style="font-size:11px;color:#2E7D32;font-weight:600;">LLM执行</p>
+        </div>
+        <div style="font-size:16px;color:#8D6E63;">→</div>
+        <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+          <p style="font-size:12px;color:#5D4037;font-weight:600;">④ 检查违禁词</p>
+          <p style="font-size:11px;color:#2E7D32;font-weight:600;">LLM自检→人验收</p>
+        </div>
+        <div style="font-size:16px;color:#8D6E63;">→</div>
+        <div style="background:#FFF8E1;border:2px solid #FFECB3;border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+          <p style="font-size:12px;color:#5D4037;font-weight:600;">⑤ 优化定稿</p>
+          <p style="font-size:11px;color:#8D6E63;">人修改</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin:8px 0;">
+        <p style="font-size:12px;color:#9E9E9E;">💡 任务定义已在拆解阶段完成（系统模板+变量），执行时进入下方闭环</p>
+      </div>
+      <!-- Branch arrows: execution loop -->
+      <div style="display:flex;justify-content:center;gap:60px;margin-bottom:16px;">
+        <div style="text-align:center;">
+          <div style="font-size:20px;color:#8D6E63;">↙</div>
+          <div style="background:#C8E6C9;border:2px solid #81C784;border-radius:12px;padding:8px 14px;margin-top:4px;">
+            <p style="font-size:11px;color:#2E7D32;font-weight:600;">步骤② 执行闭环</p>
+            <p style="font-size:10px;color:#5D4037;">识别→辨证→验收 ↺</p>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:20px;color:#8D6E63;">↓</div>
+          <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 14px;margin-top:4px;">
+            <p style="font-size:11px;color:#2E7D32;font-weight:600;">步骤③ 执行闭环</p>
+            <p style="font-size:10px;color:#5D4037;">识别→辨证→验收 ↺</p>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:20px;color:#8D6E63;">↘</div>
+          <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:12px;padding:8px 14px;margin-top:4px;">
+            <p style="font-size:11px;color:#2E7D32;font-weight:600;">步骤④ 执行闭环</p>
+            <p style="font-size:10px;color:#5D4037;">识别→辨证→验收 ↺</p>
+          </div>
+        </div>
+      </div>
+      <!-- Bottom: key insight -->
+      <div class="card" style="max-width:900px;text-align:center;background:#FFEBEE;border-color:#FFCDD2;">
+        <p style="font-size:15px;color:#D32F2F;font-weight:600;">📌 关键认知：任务定义一次性完成，识别→辨证→验收反复循环直到交付。</p>
+        <p style="font-size:13px;color:#8D6E63;margin-top:6px;">拆解阶段产出任务分工图+系统模板；执行阶段每个有LLM参与的子步骤，独立对话、反复纠偏、验收通过即结束。</p>
+      </div>
+      <div class="page-num">09 / 22</div>
+    </div>
+  </div>
+  <!-- Slide 10: Three Layers of Accumulation -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>协作成果的三层沉淀</h2>
+      <p class="subtitle" style="margin-bottom:24px;">越底层越固化复用，越上层越需要每次打磨</p>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;width:100%;max-width:800px;">
+        <!-- Layer 3: Top, narrowest -->
+        <div style="background:#FFEBEE;border:2px solid #EF9A9A;border-radius:16px 16px 0 0;padding:16px 24px;width:60%;text-align:center;">
+          <span class="icon-med">📝</span>
+          <h3 style="font-size:16px;margin-bottom:4px;">第三层：4步流对话记录</h3>
+          <p style="font-size:13px;color:#8D6E63;">一次性打磨，不复用</p>
+          <p style="font-size:12px;color:#9E9E9E;margin-top:4px;">每次和AI对话的完整过程，只参考方法论，不复制粘贴</p>
+        </div>
+        <!-- Layer 2: Middle -->
+        <div style="background:#FFF8E1;border:2px solid #FFECB3;border-radius:0;padding:16px 24px;width:80%;text-align:center;border-top:none;border-bottom:none;">
+          <span class="icon-med">📋</span>
+          <h3 style="font-size:16px;margin-bottom:4px;">第二层：系统模板</h3>
+          <p style="font-size:13px;color:#8D6E63;">同一步骤复用，只换变量</p>
+          <p style="font-size:12px;color:#9E9E9E;margin-top:4px;">角色+背景+约束+框架，固化后每次加载，输入变量即可</p>
+        </div>
+        <!-- Layer 1: Bottom, widest -->
+        <div style="background:#E8F5E9;border:2px solid #C8E6C9;border-radius:0 0 16px 16px;padding:16px 24px;width:100%;text-align:center;">
+          <span class="icon-med">🗺️</span>
+          <h3 style="font-size:16px;margin-bottom:4px;">第一层：任务分工图</h3>
+          <p style="font-size:13px;color:#8D6E63;">同类任务复用，不同任务重新拆</p>
+          <p style="font-size:12px;color:#9E9E9E;margin-top:4px;">某类任务的标准拆解（如"写文案=5步"），换品类时复用骨架</p>
+        </div>
+      </div>
+      <div class="card" style="max-width:800px;text-align:center;margin-top:20px;background:#F5F5F5;border-color:#E0E0E0;">
+        <p style="font-size:14px;color:#5D4037;"><strong>沉淀逻辑：</strong>先跑通4步流 → 把任务定义沉淀为系统模板 → 把任务分工沉淀为标准拆解图。越底层，换个人也能接得住。</p>
+      </div>
+      <div class="page-num">10 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 11: Core Formula + A/B Test -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div style="text-align:center;margin-bottom:8px;">
+        <span class="tag" style="font-size:13px;">系统模板是第二层沉淀，那模板里具体写什么？</span>
+      </div>
+      <h2>一条好文案，从会说话开始</h2>
+      <p class="subtitle" style="margin-bottom:20px;">先从最精简的"核心公式"开始，再扩展成完整模板</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;">
+        <div class="formula-box">角色</div>
+        <span style="font-size:22px;color:#8D6E63;">+</span>
+        <div class="formula-box">背景</div>
+        <span style="font-size:22px;color:#8D6E63;">+</span>
+        <div class="formula-box">目标</div>
+        <span style="font-size:22px;color:#8D6E63;">+</span>
+        <div class="formula-box">要求</div>
+        <span style="font-size:22px;color:#8D6E63;">+</span>
+        <div class="formula-box">约束</div>
+        <span style="font-size:22px;color:#8D6E63;">=</span>
+        <div style="font-size:36px;">🎯</div>
+      </div>
+      <div style="display:flex;gap:16px;width:100%;max-width:1100px;">
+        <div style="flex:1;background:#F5F5F5;border-radius:16px;padding:16px;border:2px solid #E0E0E0;">
+          <div style="text-align:center;margin-bottom:10px;">
+            <span style="display:inline-block;background:#EF5350;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">❌ 坏提示词</span>
+          </div>
+          <div class="chat-ai bad" style="margin:0 auto 10px;max-width:100%;font-size:13px;">帮我写一条推销课程的文案</div>
+          <div style="background:#fff;border-radius:12px;padding:14px;text-align:center;">
+            <p style="font-size:12px;color:#9E9E9E;margin-bottom:6px;">AI输出：</p>
+            <p style="font-size:13px;color:#9E9E9E;">亲爱的用户，我们的课程非常专业，老师经验丰富，快来报名吧！</p>
+            <div style="margin-top:8px;font-size:20px;">❌ ❌ ❌</div>
+          </div>
+        </div>
+        <div style="flex:1;background:#FFEBEE;border-radius:16px;padding:16px;border:2px solid #FFCDD2;">
+          <div style="text-align:center;margin-bottom:10px;">
+            <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">✅ 好提示词</span>
+          </div>
+          <div class="chat-user" style="margin:0 auto 10px;max-width:100%;font-size:12px;line-height:1.6;">
+            <strong>【角色】</strong>你是中老年课程资深运营<br>
+            <strong>【背景】</strong>用户是50-60岁已购八段锦人群，冬季腰背酸痛高发<br>
+            <strong>【目标】</strong>推五禽戏体验课，引导领课<br>
+            <strong>【要求】</strong>3-4段式弱营销文案，120字以内，每段带emoji，像朋友推荐<br>
+            <strong>【约束】</strong>不能出现"健康""养生""中医"等违禁词
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:14px;text-align:center;">
+            <p style="font-size:12px;color:#8D6E63;margin-bottom:6px;">AI输出：</p>
+            <p style="font-size:13px;color:#5D4037;">😣 冬天洗碗站一会儿腰就酸...<br>👍 我最近跟着传承人练了套五禽戏...</p>
+            <div style="margin-top:8px;font-size:20px;">✅ ✅ ✅</div>
+          </div>
+        </div>
+      </div>
+      <div class="tag-row" style="margin-top:14px;">
+        <div class="tag-item">角色</div>
+        <div class="tag-item">背景</div>
+        <div class="tag-item">目标</div>
+        <div class="tag-item">要求</div>
+        <div class="tag-item">约束</div>
+      </div>
+      <div class="page-num">11 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 12: System Template 6 Elements -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>让AI记住你 —— 系统模板6要素</h2>
+      <p class="subtitle" style="margin-bottom:28px;">把不变的信息存起来，每次只改变量</p>
+      <div class="card" style="max-width:900px;text-align:center;margin-bottom:20px;padding:8px 16px;background:#FFF8E1;border-color:#FFECB3;">
+        <p style="font-size:14px;color:#5D4037;font-weight:600;">💡 刚才是"一次性交代"的极简公式，现在是"存起来反复用"的完整模板</p>
+      </div>
+      <div class="grid-3x2">
+        <div class="card" style="text-align:center;">
+          <div style="font-size:14px;color:#8D6E63;margin-bottom:6px;">🔒 Constants</div>
+          <h3 style="font-size:20px;">【身份】</h3>
+          <p style="font-size:15px;">你是谁</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:14px;color:#8D6E63;margin-bottom:6px;">🔒 Constants</div>
+          <h3 style="font-size:20px;">【用户画像】</h3>
+          <p style="font-size:15px;">不变的用户特征</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:14px;color:#8D6E63;margin-bottom:6px;">🔒 Constants</div>
+          <h3 style="font-size:20px;">【输出要求】</h3>
+          <p style="font-size:15px;">固定的格式约束</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:14px;color:#8D6E63;margin-bottom:6px;">🔒 Constants</div>
+          <h3 style="font-size:20px;">【违禁词清单】</h3>
+          <p style="font-size:15px;">固定不能出现的词</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:14px;color:#8D6E63;margin-bottom:6px;">🔒 Constants</div>
+          <h3 style="font-size:20px;">【参考框架/示例】</h3>
+          <p style="font-size:15px;">文案或复盘结构</p>
+          <p style="font-size:12px;color:#EF6C00;margin-top:4px;font-weight:600;">💡 这叫 few-shot：给AI参考示例，让它模仿风格</p>
+        </div>
+        <div class="card card-orange" style="text-align:center;">
+          <div style="font-size:14px;color:#EF6C00;margin-bottom:6px;">✏️ Variable</div>
+          <h3 style="font-size:20px;">【动作与变量】</h3>
+          <p style="font-size:15px;">你每次让AI做什么/输入什么</p>
+        </div>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;margin-top:24px;background:#FFF8E1;border-color:#FFECB3;">
+        <p style="font-size:18px;color:#5D4037;font-weight:700;">把不变的信息存起来，每次只改变量</p>
+        <p style="font-size:14px;color:#8D6E63;margin-top:6px;">DeepSeek无模板保存功能，系统模板需存到备忘录/飞书文档，每次新对话复制粘贴。豆包可创建智能体保存模板。</p>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;margin-top:12px;background:#E8F5E9;border-color:#C8E6C9;">
+        <p style="font-size:14px;color:#2E7D32;font-weight:600;">🔄 补充提示：DeepSeek长对话会失忆，一个子步骤跑完后主动开新对话。系统模板 + 一对话一任务 = 解决重复输入 + 解决上下文失忆</p>
+      </div>
+      <div class="page-num">12 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 13: Work Flow -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>现阶段你的工作流 —— 不用换工具，今天就能跑通</h2>
+      <p class="subtitle" style="margin-bottom:28px;">从"每次重新教AI"到"一次定义，反复使用"</p>
+      <div class="flex-row" style="align-items:stretch;">
+        <div class="card col-4" style="text-align:center;">
+          <span class="icon-big">📝</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">步骤1：准备系统模板</h3>
+          <p style="font-size:14px;">填写6要素</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">存到备忘录/飞书文档（或设成输入法快捷短语）</p>
+          <p style="font-size:12px;color:#D32F2F;margin-top:6px;">💡 豆包用户可创建智能体保存模板</p>
+        </div>
+        <div class="card col-4" style="text-align:center;">
+          <span class="icon-big">⚡</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">步骤2：只改变量</h3>
+          <p style="font-size:14px;">打开新对话</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">粘贴模板 → 输入本次变量（课程名/季节/数据）</p>
+          <p style="font-size:12px;color:#D32F2F;margin-top:6px;">关键：一对话一任务</p>
+        </div>
+        <div class="card col-4" style="text-align:center;">
+          <span class="icon-big">🔄</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">步骤3：跑通4步闭环</h3>
+          <p style="font-size:14px;">任务定义（系统模板+变量）</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">→ 幻觉识别 → 辨证纠正 → 验收交付</p>
+        </div>
+        <div class="card col-4" style="text-align:center;">
+          <span class="icon-big">📈</span>
+          <h3 style="font-size:16px;margin-bottom:8px;">步骤4：迭代模板</h3>
+          <p style="font-size:14px;">验收发现问题</p>
+          <p style="font-size:13px;color:#8D6E63;margin-top:8px;">反馈回模板：违禁词排序、补充角度库</p>
+          <p style="font-size:12px;color:#D32F2F;margin-top:6px;">模板是v1.0 → v1.1 → v1.2</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:16px;width:100%;max-width:1000px;margin-top:24px;">
+        <div style="flex:1;background:#F5F5F5;border-radius:16px;padding:16px;border:2px solid #E0E0E0;">
+          <div style="text-align:center;margin-bottom:10px;">
+            <span style="display:inline-block;background:#EF5350;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">❌ Before</span>
+          </div>
+          <p style="font-size:14px;text-align:center;color:#9E9E9E;">每次写文案重新交代背景 → AI跑偏 → 骂AI → 手写</p>
+        </div>
+        <div style="flex:1;background:#E8F5E9;border-radius:16px;padding:16px;border:2px solid #C8E6C9;">
+          <div style="text-align:center;margin-bottom:10px;">
+            <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">✅ After</span>
+          </div>
+          <p style="font-size:14px;text-align:center;color:#2E7D32;font-weight:600;">加载模板 → 输入变量 → 4步闭环 → 验收交付</p>
+        </div>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;margin-top:12px;background:#E8F5E9;border-color:#C8E6C9;">
+        <p style="font-size:14px;color:#2E7D32;font-weight:600;">🚀 进阶方向：当你有3个任务都跑通了，可以考虑用AGENT（如Trae Solo）把它们串联成自动工作流</p>
+      </div>
+      <div class="page-num">13 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 14: Methodology Grinding Dialogue -->
+  <div class="slide">
+    <div class="slide-inner" style="padding:40px 80px;">
+      <h2 style="font-size:36px;margin-bottom:8px;">Step1 延伸 — 方法论打磨对话</h2>
+      <p class="subtitle" style="margin-bottom:16px;">不知道从何开始？两种方式：主动补充背景信息，或让AI反问你</p>
+      <div style="display:flex;gap:16px;width:100%;max-width:1200px;">
+        <div style="flex:1;">
+          <div style="margin-bottom:10px;">
+            <div class="chat-label">🙋 运营（第1轮）</div>
+            <div class="chat-user">我不知道该怎么和AI协作，每次写文案都很乱</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div class="chat-label" style="text-align:right;">🤖 AI</div>
+            <div class="chat-ai">我先反问你。第一：你负责什么业务？日常和AI协作的具体场景是什么？（文案/数据/策略/其他）</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div class="chat-label">🙋 运营（第2轮）</div>
+            <div class="chat-user">我是中老年课程运营，主要写信息流文案和数字人脚本</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div class="chat-label" style="text-align:right;">🤖 AI</div>
+            <div class="chat-ai">第二：你目前最大的卡点是什么？输出不准、格式不对、还是经常跑偏？</div>
+          </div>
+        </div>
+        <div style="flex:1;">
+          <div style="margin-bottom:10px;">
+            <div class="chat-label">🙋 运营（第3轮）</div>
+            <div class="chat-user">经常跑偏，我说了不能出现"健康"，AI还是出现；而且每次都要重新交代背景</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div class="chat-label" style="text-align:right;">🤖 AI</div>
+            <div class="chat-ai">第三：你理想中AI帮你做到什么程度？哪些必须人工把关？</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div class="chat-label">🙋 运营（第4轮）</div>
+            <div class="chat-user">我希望AI按我的风格直接出文案，我只负责检查违禁词和最终把关</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div class="chat-label" style="text-align:right;">🤖 AI</div>
+            <div class="chat-ai good">基于以上，你的「文案协作SOP」是：①开场交代身份+画像 ②列违禁词 ③给参考文案定风格 ④给本次变量。你确认对吗？</div>
+          </div>
+          <div>
+            <div class="chat-label">🙋 运营（第5轮）</div>
+            <div class="chat-user">确认。我把它保存为我的「文案协作口令」，下次直接粘贴这段开头</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;margin-top:10px;padding:10px 20px;">
+        <p style="font-size:15px;color:#D32F2F;font-weight:600;">🎯 方法论不是背下来的：你可以主动交代背景，也可以让AI反问你。两种方式一起用，边界更清晰</p>
+      </div>
+      <div class="page-num">14 / 22</div>
+    </div>
+  </div>
+
+    <!-- Slide 15: Task Definition - Copywriting -->
+  <div class="slide">
+    <div class="slide-inner" style="padding:40px 80px;">
+      <h2 style="font-size:36px;margin-bottom:8px;">场景实战：文案的任务定义</h2>
+      <p class="subtitle" style="margin-bottom:12px;">一步版 vs 两步版：角度谁定，结果天差地别</p>
+      <div style="display:flex;gap:16px;width:100%;max-width:1200px;margin-bottom:12px;">
+        <!-- Left: One-step version -->
+        <div style="flex:1;background:#F5F5F5;border-radius:16px;padding:16px;border:2px solid #E0E0E0;">
+          <div style="text-align:center;margin-bottom:10px;">
+            <span style="display:inline-block;background:#EF5350;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">❌ 一步版：角度让AI自由发挥</span>
+          </div>
+          <div class="chat-user" style="font-size:12px;padding:8px 12px;margin-bottom:8px;">
+            【角色】中老年课程资深运营<br>
+            【背景】50-60岁已购八段锦人群，冬季腰背酸痛<br>
+            【动作】写一条五禽戏体验课营销文案<br>
+            【要求】3-4段，120字，弱营销，带emoji<br>
+            【约束】不能出现：健康、养生...
+          </div>
+          <div class="chat-ai bad" style="font-size:12px;padding:8px 12px;margin-bottom:8px;">
+            😣 冬天一到，腰背就开始"抗议"？八段锦练了还是酸...<br>
+            👍 试试五禽戏！华佗传承，专门调理腰背...<br>
+            💪 每天10分钟，改善腰背僵硬...<br>
+            👉 现在报名，享老学员专属价...
+          </div>
+          <div style="background:#FFEBEE;border-radius:8px;padding:8px;">
+            <p style="font-size:12px;color:#C62828;">❌ 角度跑偏：强调"替代八段锦"（得罪已购用户）<br>❌ 卖点捏造："老学员专属价"（活动不存在）<br>❌ 颗粒度粗："腰背僵硬"太泛，没有场景感</p>
+          </div>
+        </div>
+        <!-- Right: Two-step version -->
+        <div style="flex:1;background:#E8F5E9;border-radius:16px;padding:16px;border:2px solid #C8E6C9;">
+          <div style="text-align:center;margin-bottom:10px;">
+            <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">✅ 两步版：人定角度，AI执行撰写</span>
+          </div>
+          <div style="background:#fff;border-radius:8px;padding:8px;margin-bottom:8px;">
+            <p style="font-size:12px;color:#5D4037;font-weight:600;">Step A：人机共创角度（任务分工第②步）</p>
+            <div class="chat-user" style="font-size:11px;padding:6px 10px;margin:4px 0;">基于画像，给我3个文案角度，说明理由</div>
+            <div class="chat-ai good" style="font-size:11px;padding:6px 10px;margin:4px 0;">① 痛点场景：冬天洗碗腰酸 → 针对性最强<br>② 季节养生：冬季养腰 → 符合时令但较泛<br>③ 传承故事：华佗59代传承人 → 有信任感但离用户远</div>
+            <div class="chat-user" style="font-size:11px;padding:6px 10px;margin:4px 0;">选①，写文案</div>
+          </div>
+          <div style="background:#fff;border-radius:8px;padding:8px;margin-bottom:8px;">
+            <p style="font-size:12px;color:#5D4037;font-weight:600;">Step B：任务定义 → 4步流撰写</p>
+            <div class="chat-user" style="font-size:11px;padding:6px 10px;margin:4px 0;">角度：冬天洗碗站一会儿腰就酸...撰写3-4段文案</div>
+            <div class="chat-ai good" style="font-size:11px;padding:6px 10px;margin:4px 0;">😣 冬天洗碗站一会儿，腰就酸得直不起来...<br>👍 我最近跟着传承人练了套"五禽戏调理法"...<br>💪 这次老师把"熊运""鸟伸"几个动作单独拎出来...<br>👉 老学员专属，仅50个免费学名额...</div>
+          </div>
+          <div style="background:#E8F5E9;border-radius:8px;padding:8px;">
+            <p style="font-size:12px;color:#2E7D32;">✅ 角度精准：不贬低八段锦，而是"补充针对性"<br>✅ 卖点真实："老学员专属"基于实际活动<br>✅ 颗粒度细："洗碗站一会儿腰就酸"有场景感</p>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;padding:10px 16px;background:#FFF8E1;border-color:#FFECB3;">
+        <p style="font-size:15px;color:#5D4037;font-weight:600;">💡 核心差异：一步版把"定角度"也扔给AI，AI只能瞎猜；两步版人定角度、AI执行撰写，输出可控。多一轮对话，质量提升10倍。</p>
+      </div>
+      <div class="page-num">15 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 16: Task Definition - Data Review -->
+  <div class="slide">
+    <div class="slide-inner" style="padding:30px 60px;">
+      <h2 style="font-size:32px;margin-bottom:4px;">场景实战：数据复盘的任务定义</h2>
+      <p class="subtitle" style="margin-bottom:12px;font-size:16px;">以下展示的是4步流中 Step1（任务定义）在数据复盘场景的具体应用</p>
+      <div style="display:flex;gap:12px;width:100%;max-width:1200px;">
+        <div style="flex:1;">
+          <div style="margin-bottom:8px;">
+            <div class="chat-label" style="font-size:12px;">🙋 运营（第1轮）</div>
+            <div class="chat-user" style="font-size:13px;padding:8px 12px;">帮我分析下本周直播数据</div>
+          </div>
+          <div style="margin-bottom:8px;">
+            <div class="chat-label" style="text-align:right;font-size:12px;">🤖 AI</div>
+            <div class="chat-ai bad" style="font-size:13px;padding:8px 12px;">本周直播表现良好，观众互动积极，建议继续优化内容...</div>
+          </div>
+          <div style="margin-bottom:8px;">
+            <div class="chat-label" style="font-size:12px;">🙋 运营（第2轮）</div>
+            <div class="chat-user" style="font-size:13px;padding:8px 12px;">我是唱歌宋品类运营，本周进量10238人，预约率4.89%，到课率69.06%，转化率24.28%。对比上周预约率下降了34.97%</div>
+          </div>
+          <div style="margin-bottom:8px;">
+            <div class="chat-label" style="text-align:right;font-size:12px;">🤖 AI</div>
+            <div class="chat-ai bad" style="font-size:13px;padding:8px 12px;">预约率下降可能是因为宣传不够，建议加大推广力度...</div>
+          </div>
+        </div>
+        <div style="flex:1;">
+          <div style="margin-bottom:8px;">
+            <div class="chat-label" style="font-size:12px;">🙋 运营（第3轮）</div>
+            <div class="chat-user" style="font-size:13px;padding:8px 12px;">用户是50-70岁退休人群，学习动机是社交娱乐。分析：①哪个环节变化最大 ②结合画像分析原因 ③给1个下周可执行的优化动作</div>
+          </div>
+          <div style="margin-bottom:8px;">
+            <div class="chat-label" style="text-align:right;font-size:12px;">🤖 AI</div>
+            <div class="chat-ai good" style="font-size:13px;padding:8px 12px;">变化最大：预约率降34.97%。原因：新增用户质量下降+预告文案吸引力不足。优化动作：1v1回捞从"催促买课"改为"邀请进群+推荐兴趣课"</div>
+          </div>
+          <div style="margin-bottom:8px;">
+            <div class="chat-label" style="font-size:12px;">🙋 运营（第4轮）</div>
+            <div class="chat-user" style="font-size:13px;padding:8px 12px;">我总结数据复盘SOP：①品类+画像 ②本周vs上周数据 ③分析任务（变化最大+原因+1个动作）④数据不足直说。我不要一堆建议，只要1个落地动作。整理成我的「数据复盘口令」，下次粘贴这段开头，对吗？</div>
+          </div>
+          <div>
+            <div class="chat-label" style="text-align:right;font-size:12px;">🤖 AI</div>
+            <div class="chat-ai good" style="font-size:13px;padding:8px 12px;">✅ 确认。你的路径：<strong>画像定调→数据对比→三问聚焦→落地动作</strong>。核心是把「1个动作」作为硬性截止，避免AI泛泛而谈。建议每周五跑一遍，数据积累后加入环比趋势。这套口令是你和AI磨合出来的<strong>个人方法论载体</strong>。</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;margin-top:8px;padding:8px 16px;">
+        <p style="font-size:14px;color:#D32F2F;font-weight:600;">🎯 终点不是一份复盘报告，是磨出属于你的「数据复盘协作口令」</p>
+      </div>
+      <div class="page-num">16 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 17: Hallucination Detection -->
+  <div class="slide">
+    <div class="slide-inner">
+      <div style="text-align:center;margin-bottom:8px;">
+        <span class="tag" style="font-size:13px;">前面学的是怎么让AI按你的定义输出。但AI不是每次都对</span>
+      </div>
+      <h2>Step2 幻觉识别</h2>
+      <p class="subtitle" style="margin-bottom:28px;">接下来三步，教你输出后怎么发现问题、纠正问题、验收质量</p>
+      <div class="flex-row" style="align-items:flex-start;">
+        <div class="card col-3 card-red">
+          <span class="icon-big">📛</span>
+          <h3 style="text-align:center;margin-bottom:8px;color:#C62828;">事实性幻觉</h3>
+          <p style="text-align:center;font-size:15px;">AI提到了<strong>不存在的课程</strong>、编造的数据、虚构的政策</p>
+          <div style="margin-top:12px;padding:10px;background:#FFCDD2;border-radius:8px;font-size:13px;text-align:center;">🚫 例：AI推荐"五禽戏进阶班"，但公司根本没有这个课</div>
+        </div>
+        <div class="card col-3 card-yellow">
+          <span class="icon-big">⚠️</span>
+          <h3 style="text-align:center;margin-bottom:8px;color:#EF6C00;">约束性幻觉</h3>
+          <p style="text-align:center;font-size:15px;">AI<strong>漏掉了</strong>你明确要求的违禁词、格式、字数、风格</p>
+          <div style="margin-top:12px;padding:10px;background:#FFE0B2;border-radius:8px;font-size:13px;text-align:center;">🚫 例：你说了不能出现"健康"，AI输出里还是有</div>
+        </div>
+        <div class="card col-3 card-pink">
+          <span class="icon-big">🧭</span>
+          <h3 style="text-align:center;margin-bottom:8px;color:#C62828;">方向性幻觉</h3>
+          <p style="text-align:center;font-size:15px;">AI<strong>答的不是你问的</strong>，理解了偏差</p>
+          <div style="margin-top:12px;padding:10px;background:#FFCDD2;border-radius:8px;font-size:13px;text-align:center;">🚫 例：你问"用户动机"，AI答"购买障碍"</div>
+        </div>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;margin-top:24px;">
+        <p style="font-size:16px;color:#5D4037;"><strong>识别原则：</strong>所有AI都会幻觉，DeepSeek会、Gemini也会。关键不是"换更贵的模型"，是<strong>输出后先自检，发现问题再纠正</strong>。</p>
+      </div>
+      <div class="page-num">17 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 18: Dialectical Commentary -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>Step3 辨证评论</h2>
+      <p class="subtitle" style="margin-bottom:20px;">辨认问题 → 指出偏差 → 给出正确方向</p>
+      <div style="display:flex;gap:20px;width:100%;max-width:1200px;">
+        <div style="flex:1;">
+          <div class="card card-red" style="margin-bottom:12px;">
+            <h3 style="font-size:16px;color:#C62828;margin-bottom:8px;">🔴 基础版辨证：纠正方向</h3>
+            <div style="margin-bottom:8px;">
+              <div class="chat-label">❌ AI第一次输出（方向幻觉）</div>
+              <div class="chat-ai bad" style="font-size:13px;padding:10px 14px;">老年人购买短视频课的痛点是：操作复杂、信息筛选困难、支付安全...</div>
+            </div>
+            <div style="margin-bottom:8px;">
+              <div class="chat-label">🙋 运营纠正</div>
+              <div class="chat-user" style="font-size:13px;padding:10px 14px;">不对，我不是问你购买过程中的痛点，而是想知道用户在产生需求时的<strong>初始动机</strong>和需要解决的问题</div>
+            </div>
+            <div>
+              <div class="chat-label" style="text-align:right;">✅ AI修正后</div>
+              <div class="chat-ai good" style="font-size:13px;padding:10px 14px;">动机一：想留住有意义的瞬间，但拍出来不好看...<br>动机二：想跟上时代，但不知道怎么开始...</div>
+            </div>
+          </div>
+        </div>
+        <div style="flex:1;">
+          <div class="card card-green">
+            <h3 style="font-size:16px;color:#2E7D32;margin-bottom:8px;">🟢 深化版辨证：打磨颗粒度</h3>
+            <div style="margin-bottom:8px;">
+              <div class="chat-label">⚠️ AI修正后（仍太泛）</div>
+              <div class="chat-ai bad" style="font-size:13px;padding:10px 14px;">想留住有意义的瞬间，但拍出来不好看...</div>
+            </div>
+            <div style="margin-bottom:8px;">
+              <div class="chat-label">🙋 运营深化</div>
+              <div class="chat-user" style="font-size:13px;padding:10px 14px;">这个场景太泛了。我需要像<strong>"李奶奶给3岁孙女过生日拍视频，画面抖、光线暗"</strong>这种颗粒度，才能写文案</div>
+            </div>
+            <div>
+              <div class="chat-label" style="text-align:right;">✅ AI最终输出</div>
+              <div class="chat-ai good" style="font-size:13px;padding:10px 14px;">场景：李奶奶给孙女过生日，手机拍的视频画面抖、光线暗，发到家庭群被女儿说"看不清"...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="max-width:900px;text-align:center;margin-top:12px;padding:12px 20px;">
+        <p style="font-size:15px;color:#5D4037;font-weight:600;">💡 辨证话术模板："不对，我不是问A，而是问B" → "这个太泛，我需要XX颗粒度"</p>
+      </div>
+      <div class="page-num">18 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 19: Output Acceptance -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>Step4 输出验收</h2>
+      <p class="subtitle" style="margin-bottom:24px;">AI自检前置过滤 → 人为验收最终把关。发现问题反哺方法论</p>
+      <div class="flex-row" style="align-items:flex-start;">
+        <div class="col-2">
+          <div class="card card-yellow" style="margin-bottom:16px;">
+            <h3 style="margin-bottom:12px;">🤖 AI自检三步法（前置过滤）</h3>
+            <p style="font-size:14px;color:#8D6E63;margin-bottom:10px;">在任务定义里加一句自检指令，让AI先过一遍：</p>
+            <div style="background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;">
+              <p style="font-size:14px;color:#5D4037;"><strong>① 生成初稿</strong> → <strong>② 按清单自检</strong> → <strong>③ 优化输出</strong></p>
+            </div>
+            <div class="chat-user" style="font-size:13px;padding:10px 14px;margin-bottom:8px;">
+              输出完成后，请按以下清单自检：<br>
+              1. 事实是否准确（课程名/价格/老师）<br>
+              2. 违禁词是否出现<br>
+              3. 格式是否符合要求<br>
+              如有问题，先修正再输出最终版
+            </div>
+            <p style="font-size:13px;color:#8D6E63;">💡 这叫 <strong>Reflection Pattern</strong>：让AI自己检查自己，减少低级错误</p>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="card">
+            <h3 style="margin-bottom:12px;">📋 人为验收清单（最终把关）</h3>
+            <ul class="checklist">
+              <li>事实核查：课程名/价格/老师名/数据是否准确</li>
+              <li>违禁词扫描：对照清单逐条过</li>
+              <li>格式核对：字数/段数/emoji位置</li>
+              <li>角度去重：与本周已发素材对比</li>
+              <li>风格把关：弱营销，像朋友推荐</li>
+              <li>可交付确认：可以直接复制粘贴下发</li>
+            </ul>
+          </div>
+          <div class="card card-green" style="margin-top:16px;">
+            <h3 style="margin-bottom:10px;color:#2E7D32;font-size:16px;">🔄 反哺方法论</h3>
+            <p style="font-size:14px;margin-bottom:8px;">验收中发现的问题，要<strong>迭代回任务定义</strong>：</p>
+            <div style="background:#fff;border-radius:12px;padding:10px;">
+              <p style="font-size:13px;">📝 <strong>例：</strong>验收发现AI老是漏掉"养生"</p>
+              <p style="font-size:13px;color:#8D6E63;margin-top:4px;">→ 把"养生"从违禁词清单第5条移到<strong>第1条</strong></p>
+              <p style="font-size:13px;color:#8D6E63;">→ 在任务定义里加"违禁词按严重程度排序"</p>
+            </div>
+            <p style="font-size:13px;color:#5D4037;margin-top:8px;"><strong>核心：</strong>每次验收都是一次方法论迭代。你的框架是v1.0 → v1.1 → v1.2</p>
+          </div>
+        </div>
+      </div>
+      <div class="page-num">19 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 20: Next Steps -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>下一步：先把基础工具用透</h2>
+      <p class="subtitle" style="margin-bottom:28px;">停止工具焦虑，免费工具够用了</p>
+      <div class="flex-row" style="flex-wrap:wrap;max-width:1000px;">
+        <div class="card col-2" style="text-align:center;">
+          <span class="icon-big">🛑</span>
+          <h3 style="font-size:18px;margin-bottom:8px;">停止死循环</h3>
+          <p style="font-size:14px;">觉得DeepSeek不好用→换Gemini→觉得也有幻觉→再换ChatGPT→<strong>永远在换LLM，从来不磨流程</strong></p>
+        </div>
+        <div class="card col-2" style="text-align:center;">
+          <span class="icon-big">🔧</span>
+          <h3 style="font-size:18px;margin-bottom:8px;">正确路径</h3>
+          <p style="font-size:14px;">选一个任务 → 用DeepSeek跑通4步流 → 反复用 → <strong>迭代出你的协作框架</strong></p>
+        </div>
+        <div class="card col-2" style="text-align:center;">
+          <span class="icon-big">📏</span>
+          <h3 style="font-size:18px;margin-bottom:8px;">标准</h3>
+          <p style="font-size:14px;">一个任务稳定了，再开第二个任务。<strong>有3个任务都沉淀出框架了</strong>，才考虑换工具</p>
+        </div>
+        <div class="card col-2" style="text-align:center;">
+          <span class="icon-big">🚫</span>
+          <h3 style="font-size:18px;margin-bottom:8px;">现在不要做的事</h3>
+          <p style="font-size:14px;">花钱开付费LLM会员、研究下一个LLM——<strong>先把DeepSeek榨干</strong>。AGENT是另一个维度，不是升级</p>
+        </div>
+      </div>
+      <div class="card" style="max-width:800px;text-align:center;margin-top:20px;background:#FFEBEE;border-color:#FFCDD2;">
+        <p style="font-size:18px;color:#C62828;font-weight:600;">⚠️ 你的瓶颈不是工具不够好，是协作流程没跑通</p>
+        <p style="font-size:14px;color:#8D6E63;margin-top:6px;">进阶路径：任务拆解（思维层）→ 4步流跑通（执行层）→ 智能体工作流（自动化层）。先走完前两步，再谈第三步。</p>
+      </div>
+      <div class="page-num">20 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 21: Live Practice -->
+  <div class="slide">
+    <div class="slide-inner" style="padding:40px 80px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;">
+        <span class="tag" style="font-size:13px;">15分钟当场实战</span>
+      </div>
+      <h2 style="font-size:36px;margin-bottom:8px;">带上你原先的任务，现场体验变化</h2>
+      <p class="subtitle" style="margin-bottom:16px;">打开DeepSeek，用你自己的工作流跑一次4步闭环</p>
+
+      <div style="display:flex;gap:16px;width:100%;max-width:1200px;margin-bottom:16px;">
+        <!-- 左侧：Before vs After -->
+        <div style="flex:1;">
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;border:2px solid #E0E0E0;margin-bottom:12px;">
+            <div style="text-align:center;margin-bottom:10px;">
+              <span style="display:inline-block;background:#EF5350;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">❌ 以前的你</span>
+            </div>
+            <div class="chat-ai bad" style="margin:0 auto 8px;max-width:100%;font-size:13px;padding:10px 14px;">帮我写条文案</div>
+            <div class="chat-ai bad" style="margin:0 auto 8px;max-width:100%;font-size:13px;padding:10px 14px;">不对，重新写</div>
+            <div class="chat-ai bad" style="margin:0 auto;max-width:100%;font-size:13px;padding:10px 14px;">还是不行，我自己写吧</div>
+            <p style="text-align:center;font-size:13px;color:#9E9E9E;margin-top:8px;">每次重新交代背景 → AI跑偏 → 骂AI → 手写</p>
+          </div>
+          <div style="background:#E8F5E9;border-radius:16px;padding:16px;border:2px solid #C8E6C9;">
+            <div style="text-align:center;margin-bottom:10px;">
+              <span style="display:inline-block;background:#66BB6A;color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;">✅ 现在的你</span>
+            </div>
+            <div class="chat-user" style="margin:0 auto 8px;max-width:100%;font-size:13px;padding:10px 14px;">粘贴「任务定义」→ 给变量 → AI按框架输出</div>
+            <div class="chat-user" style="margin:0 auto 8px;max-width:100%;font-size:13px;padding:10px 14px;">识别幻觉（事实/约束/方向）</div>
+            <div class="chat-user" style="margin:0 auto;max-width:100%;font-size:13px;padding:10px 14px;">辨证纠正 → 验收交付</div>
+            <p style="text-align:center;font-size:13px;color:#2E7D32;margin-top:8px;font-weight:600;">加载协作方法论 → 可控输出 → 人为把关</p>
+          </div>
+        </div>
+
+        <!-- 右侧：实战步骤 + 时间分配 -->
+        <div style="flex:1;">
+          <div class="card" style="height:100%;display:flex;flex-direction:column;justify-content:center;">
+            <h3 style="font-size:18px;margin-bottom:12px;">🎯 实战步骤（15分钟）</h3>
+            <div style="margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span style="background:#D32F2F;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">1</span>
+                <span style="font-size:15px;font-weight:600;">讲师演示：一个文案任务怎么拆（2分钟）</span>
+              </div>
+              <p style="font-size:13px;color:#8D6E63;padding-left:32px;">展示5步分工，重点讲②"确定角度"为什么是人+LLM共创</p>
+            </div>
+            <div style="margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span style="background:#D32F2F;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">2</span>
+                <span style="font-size:15px;font-weight:600;">打开你的任务，做拆解+分工（3分钟）</span>
+              </div>
+              <p style="font-size:13px;color:#8D6E63;padding-left:32px;">拆步骤 → 判分工（人/LLM/共创）→ 自检：这步交给实习生我放心吗？</p>
+            </div>
+            <div style="margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span style="background:#D32F2F;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">3</span>
+                <span style="font-size:15px;font-weight:600;">选1个LLM步骤，跑4步流（8分钟）</span>
+              </div>
+              <p style="font-size:13px;color:#8D6E63;padding-left:32px;">任务定义（加载模板+变量）→ 识别幻觉 → 辨证纠正 → 验收交付<br>建议先试"撰写文案"或"分析数据"这类执行步骤</p>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span style="background:#D32F2F;color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">4</span>
+                <span style="font-size:15px;font-weight:600;">截图发群，分享你的拆解+产出（2分钟）</span>
+              </div>
+              <p style="font-size:13px;color:#8D6E63;padding-left:32px;">先晒任务分工图（哪几步、谁做），再晒4步流产出</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="max-width:900px;text-align:center;padding:12px 20px;background:#FFF8E1;border-color:#FFECB3;">
+        <p style="font-size:15px;color:#5D4037;font-weight:600;">💡 核心体验：不是「AI帮我写」，是「我和AI磨出了协作方式」——这个方式是你的，换个人用同样的工具，产出也不一样</p>
+      </div>
+      <div class="page-num">21 / 22</div>
+    </div>
+  </div>
+
+  <!-- Slide 22: Summary + Homework -->
+  <div class="slide">
+    <div class="slide-inner">
+      <h2>带走什么 & 下一步</h2>
+      <p class="subtitle" style="margin-bottom:20px;">今天学了协作，回去要落地</p>
+      <div class="flex-row" style="align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;">
+        <div class="card col-3 card-pink" style="text-align:center;min-width:200px;">
+          <span class="icon-big">✂️</span>
+          <h3 style="font-size:16px;">任务拆解卡</h3>
+          <p style="font-size:13px;">基础拆解→进阶分工，判哪步给LLM</p>
+        </div>
+        <div class="card col-3 card-pink" style="text-align:center;min-width:200px;">
+          <span class="icon-big">📝</span>
+          <h3 style="font-size:16px;">任务定义记录卡</h3>
+          <p style="font-size:13px;">你和AI磨出来的框架</p>
+        </div>
+        <div class="card col-3 card-yellow" style="text-align:center;min-width:200px;">
+          <span class="icon-big">🔍</span>
+          <h3 style="font-size:16px;">幻觉识别速查卡</h3>
+          <p style="font-size:13px;">3个信号，一看就懂</p>
+        </div>
+        <div class="card col-3 card-green" style="text-align:center;min-width:200px;">
+          <span class="icon-big">💬</span>
+          <h3 style="font-size:16px;">辨证评论话术卡</h3>
+          <p style="font-size:13px;">3句纠正话术</p>
+        </div>
+      </div>
+      <div class="flex-row" style="align-items:flex-start;">
+        <div class="col-2">
+          <div class="card">
+            <h3 style="font-size:16px;margin-bottom:8px;">📚 本周作业</h3>
+            <p style="font-size:14px;">按岗位角色选一个真实任务，先拆解再执行：</p>
+            <ul style="font-size:14px;padding-left:18px;margin-top:6px;">
+              <li>文案运营：选信息流/数字人/直播预热，拆步骤、判分工</li>
+              <li>数据运营：选直播回捞/素材推送复盘，拆步骤、判分工</li>
+            </ul>
+            <p style="font-size:14px;margin-top:8px;"><strong>产出：</strong>任务拆解图 + 1个步骤的4步流完整截图，沉淀私有协作方法论</p>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="card card-orange">
+            <h3 style="font-size:16px;margin-bottom:8px;">📅 每月评估（嵌入工作流）</h3>
+            <p style="font-size:14px;margin-bottom:6px;">每月问自己4个问题，写进任务定义文档：</p>
+            <ol style="font-size:14px;padding-left:18px;">
+              <li>我能把任务拆清楚、判断哪步给LLM了吗？</li>
+              <li>这个任务用AI后，完成时间缩短了吗？</li>
+              <li>AI输出的一次通过率提高了吗？</li>
+              <li>我的任务定义方法论迭代了几版？</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="page-num">22 / 22</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  function showSlide(n) {
+    slides.forEach(s => s.classList.remove('active'));
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') showSlide(current + 1);
+    if (e.key === 'ArrowLeft') showSlide(current - 1);
+  });
+</script>
+</body>
+</html>
